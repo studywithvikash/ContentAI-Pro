@@ -51,3 +51,32 @@ history.push({
 });
 
 localStorage.setItem("contentHistory", JSON.stringify(history));
+function showHistory() {
+
+  const historyList = document.getElementById("historyList");
+
+  if (!historyList) return;
+
+  let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
+
+  if (history.length === 0) {
+    historyList.innerHTML = "No history yet...";
+    return;
+  }
+
+  historyList.innerHTML = "";
+
+  history.forEach(function(item) {
+
+    historyList.innerHTML += `
+      <div class="history-item">
+        <h4>${item.topic}</h4>
+        <p>Type: ${item.type}</p>
+        <small>${item.date}</small>
+      </div>
+    `;
+
+  });
+
+}
+  showHistory();
