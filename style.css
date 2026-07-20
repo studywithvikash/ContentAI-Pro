@@ -65,3 +65,26 @@ button{
   border-radius:8px;
   border:1px solid #ddd;
 }
+.dashboard{
+  max-width:500px;
+  margin:40px auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+}
+
+.dashboard input,
+.dashboard select{
+  width:90%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+
+.output{
+  margin-top:20px;
+  padding:20px;
+  background:#f1f5f9;
+  border-radius:10px;
+}
