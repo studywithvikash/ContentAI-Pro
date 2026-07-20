@@ -39,7 +39,17 @@ It helps readers understand the topic and create valuable ideas.
 </p>
 
 `;
+let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
 
+history.push({
+topic: topic,
+type: type,
+content: output.innerText
+});
+
+localStorage.setItem("contentHistory", JSON.stringify(history));
+
+showHistory();
 },1500);
 
 });
