@@ -102,9 +102,29 @@ if (copyBtn) {
 
     const output = document.getElementById("output");
 
-    navigator.clipboard.writeText(output.innerText);
+    const text = output.innerText;
 
-    alert("✅ Content copied successfully!");
+    if (navigator.clipboard) {
+
+      navigator.clipboard.writeText(text)
+        .then(function () {
+          alert("✅ Content copied!");
+        })
+        .catch(function () {
+          alert("❌ Copy failed.");
+        });
+
+    } else {
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
+      alert("✅ Content copied!");
+    }
 
   });
 
