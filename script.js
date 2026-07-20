@@ -1,27 +1,46 @@
 console.log("ContentAI Pro Started");
-const generateBtn = document.querySelector(".dashboard button");
+
+const generateBtn = document.getElementById("generateBtn");
 
 if(generateBtn){
 
 generateBtn.addEventListener("click", function(){
 
-let output = document.querySelector(".output");
+const topic = document.getElementById("topic").value;
+const type = document.getElementById("type").value;
+const tone = document.getElementById("tone").value;
+const length = document.getElementById("length").value;
+
+const output = document.getElementById("output");
+
+if(topic === ""){
+  output.innerHTML = "Please enter a topic first.";
+  return;
+}
+
+output.innerHTML = "✨ Creating your AI content...";
+
+setTimeout(()=>{
 
 output.innerHTML = `
-<h3>Generated Content:</h3>
+<h3>${type}</h3>
+
+<p><b>Topic:</b> ${topic}</p>
 
 <p>
-10 Digital Marketing Tips to Grow Your Business in 2026
-
-1. Understand your audience.
-2. Create valuable content.
-3. Use social media marketing.
-4. Optimize for SEO.
-5. Track your results.
-
-Start building your online presence today!
+<b>Tone:</b> ${tone}<br>
+<b>Length:</b> ${length}
 </p>
+
+<p>
+${topic} is an important topic in today's digital world.
+This content is written in a ${tone} style.
+It helps readers understand the topic and create valuable ideas.
+</p>
+
 `;
+
+},1500);
 
 });
 
