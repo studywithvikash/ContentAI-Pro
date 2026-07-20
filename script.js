@@ -38,7 +38,14 @@ This content is written in a ${tone} style.
 It helps readers understand the topic and create valuable ideas.
 </p>
 `;
+let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
 
+history.push({
+topic: topic,
+date: new Date().toLocaleString()
+});
+
+localStorage.setItem("contentHistory", JSON.stringify(history));
 output.innerHTML = content;
 
 
