@@ -34,3 +34,17 @@ button{
   margin:15px;
   border-radius:15px;
 }
+.pricing{
+  text-align:center;
+  padding:50px 20px;
+}
+
+.price-card{
+  display:inline-block;
+  background:white;
+  width:250px;
+  margin:15px;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
