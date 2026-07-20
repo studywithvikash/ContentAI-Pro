@@ -94,3 +94,18 @@ if (generateBtn) {
 
 // Load history when page opens
 showHistory();
+const copyBtn = document.getElementById("copyBtn");
+
+if (copyBtn) {
+
+  copyBtn.addEventListener("click", function () {
+
+    const output = document.getElementById("output");
+
+    navigator.clipboard.writeText(output.innerText);
+
+    alert("✅ Content copied successfully!");
+
+  });
+
+}
