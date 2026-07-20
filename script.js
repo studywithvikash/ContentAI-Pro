@@ -55,3 +55,30 @@ showHistory();
 });
 
 }
+function showHistory(){
+
+const historyList = document.getElementById("historyList");
+
+if(!historyList) return;
+
+let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
+
+if(history.length === 0){
+historyList.innerHTML = "No history yet...";
+return;
+}
+
+historyList.innerHTML = "";
+
+history.forEach(item=>{
+
+historyList.innerHTML += `
+<div class="history-item">
+<h4>${item.type}</h4>
+<p>${item.topic}</p>
+</div>
+`;
+
+});
+
+}
