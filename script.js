@@ -2,55 +2,7 @@ console.log("ContentAI Pro Started");
 
 const generateBtn = document.getElementById("generateBtn");
 
-if(generateBtn){
-
-generateBtn.addEventListener("click", function(){
-
-const topic = document.getElementById("topic").value;
-const type = document.getElementById("type").value;
-const tone = document.getElementById("tone").value;
-const length = document.getElementById("length").value;
-
-const output = document.getElementById("output");
-
-if(topic === ""){
-  output.innerHTML = "Please enter a topic first.";
-  return;
-}
-
-output.innerHTML = "✨ Creating your AI content...";
-
-setTimeout(()=>{
-
-let content = `
-<h3>${type}</h3>
-
-<p><b>Topic:</b> ${topic}</p>
-
-<p>
-<b>Tone:</b> ${tone}<br>
-<b>Length:</b> ${length}
-</p>
-
-<p>
-${topic} is an important topic in today's digital world.
-This content is written in a ${tone} style.
-It helps readers understand the topic and create valuable ideas.
-</p>
-`;
-output.innerHTML = content;
-
-let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
-
-history.push({
-  topic: topic,
-  type: type,
-  tone: tone,
-  length: length,
-  date: new Date().toLocaleString()
-});
-
-localStorage.setItem("contentHistory", JSON.stringify(history));
+// Show History
 function showHistory() {
 
   const historyList = document.getElementById("historyList");
@@ -72,6 +24,7 @@ function showHistory() {
       <div class="history-item">
         <h4>${item.topic}</h4>
         <p>Type: ${item.type}</p>
+        <p>Tone: ${item.tone}</p>
         <small>${item.date}</small>
       </div>
     `;
@@ -79,4 +32,65 @@ function showHistory() {
   });
 
 }
-  showHistory();
+
+// Generate Content
+if (generateBtn) {
+
+  generateBtn.addEventListener("click", function () {
+
+    const topic = document.getElementById("topic").value;
+    const type = document.getElementById("type").value;
+    const tone = document.getElementById("tone").value;
+    const length = document.getElementById("length").value;
+    const output = document.getElementById("output");
+
+    if (topic.trim() === "") {
+      output.innerHTML = "Please enter a topic first.";
+      return;
+    }
+
+    output.innerHTML = "✨ Creating your AI content...";
+
+    setTimeout(function () {
+
+      let content = `
+        <h3>${type}</h3>
+
+        <p><b>Topic:</b> ${topic}</p>
+
+        <p>
+        <b>Tone:</b> ${tone}<br>
+        <b>Length:</b> ${length}
+        </p>
+
+        <p>
+        ${topic} is an important topic in today's digital world.
+        This content is written in a ${tone.toLowerCase()} style.
+        You can expand and customize it further.
+        </p>
+      `;
+
+      output.innerHTML = content;
+
+      let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
+
+      history.unshift({
+        topic: topic,
+        type: type,
+        tone: tone,
+        length: length,
+        date: new Date().toLocaleString()
+      });
+
+      localStorage.setItem("contentHistory", JSON.stringify(history));
+
+      showHistory();
+
+    }, 1500);
+
+  });
+
+}
+
+// Load history when page opens
+showHistory();
