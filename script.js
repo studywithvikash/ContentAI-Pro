@@ -84,3 +84,4 @@ historyList.innerHTML += `
 }
 });
 }
+showHistory();
