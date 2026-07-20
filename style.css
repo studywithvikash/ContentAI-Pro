@@ -110,3 +110,13 @@ button{
   border-radius:8px;
   cursor:pointer;
 }
+#clearHistoryBtn{
+  margin-top:10px;
+  margin-left:10px;
+  padding:10px 20px;
+  background:#dc2626;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
