@@ -22,7 +22,7 @@ output.innerHTML = "✨ Creating your AI content...";
 
 setTimeout(()=>{
 
-output.innerHTML = `
+let content = `
 <h3>${type}</h3>
 
 <p><b>Topic:</b> ${topic}</p>
@@ -37,51 +37,24 @@ ${topic} is an important topic in today's digital world.
 This content is written in a ${tone} style.
 It helps readers understand the topic and create valuable ideas.
 </p>
-
 `;
+
+output.innerHTML = content;
+
+
+// Save History
 let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
 
 history.push({
 topic: topic,
-type: type,
-content: output.innerText
+type: type
 });
 
 localStorage.setItem("contentHistory", JSON.stringify(history));
 
-showHistory();
+
 },1500);
 
 });
 
 }
-function showHistory(){
-
-const historyList = document.getElementById("historyList");
-
-if(!historyList) return;
-
-let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
-
-if(history.length === 0){
-historyList.innerHTML = "No history yet...";
-return;
-}
-
-historyList.innerHTML = "";
-
-history.forEach(item=>{
-
-historyList.innerHTML += `
-<div class="history-item">
-<h4>${item.type}</h4>
-<p>${item.topic}</p>
-</div>
-`;
-
-});
-
-}
-});
-}
-showHistory();
