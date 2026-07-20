@@ -129,3 +129,22 @@ if (copyBtn) {
   });
 
 }
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+
+if (clearHistoryBtn) {
+
+  clearHistoryBtn.addEventListener("click", function () {
+
+    if (confirm("Are you sure you want to clear all history?")) {
+
+      localStorage.removeItem("contentHistory");
+
+      showHistory();
+
+      alert("✅ History cleared successfully!");
+
+    }
+
+  });
+
+}
