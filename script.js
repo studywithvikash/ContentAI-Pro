@@ -82,3 +82,5 @@ historyList.innerHTML += `
 });
 
 }
+});
+}
