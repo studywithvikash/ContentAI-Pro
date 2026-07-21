@@ -1,139 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ContentAI Pro Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <div class="container">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
+<!-- Sidebar -->
 
-    <h2 class="logo">🤖 ContentAI Pro</h2>
+<aside class="sidebar">
 
-    <ul class="menu">
-      <li class="active">🏠 Dashboard</li>
-      <li>✍ AI Writer</li>
-      <li>🕒 History</li>
-      <li>⭐ Upgrade</li>
-      <li>⚙ Settings</li>
-    </ul>
+<h2 class="logo">
+🤖 ContentAI Pro
+</h2>
 
-  </aside>
+<ul class="menu">
 
+<li class="active">🏠 Dashboard</li>
 
-  <!-- Main Content -->
-  <main class="main">
+<li>✍ AI Writer</li>
 
-    <header class="topbar">
+<li>🕒 History</li>
 
-      <h2>AI Content Generator</h2>
+<li>⭐ Upgrade</li>
 
-      <button class="logoutBtn">
-        Logout
-      </button>
+<li onclick="logout()">🚪 Logout</li>
 
-    </header>
+</ul>
 
+</aside>
 
-    <!-- Generator Card -->
+<!-- Main -->
 
-    <div class="card">
+<main class="main">
 
-      <h3>Create Content</h3>
+<header class="topbar">
 
-      <input
-      type="text"
-      id="topic"
-      placeholder="Enter your topic">
+<h2>AI Content Generator</h2>
 
-      <div class="row">
+</header>
 
-        <select id="type">
-          <option>Blog Article</option>
-          <option>Social Media Post</option>
-          <option>Email</option>
-          <option>Product Description</option>
-        </select>
+<!-- Generator -->
 
-        <select id="tone">
-          <option>Professional</option>
-          <option>Friendly</option>
-          <option>Creative</option>
-        </select>
+<div class="card">
 
-        <select id="length">
-          <option>Short</option>
-          <option>Medium</option>
-          <option>Long</option>
-        </select>
+<h3>Create Content</h3>
 
-      </div>
+<input
+type="text"
+id="topic"
+placeholder="Enter Topic">
 
-      <button id="generateBtn">
-        ✨ Generate Content
-      </button>
+<div class="row">
 
-      <button id="copyBtn">
-        📋 Copy
-      </button>
+<select id="type">
 
-      <button id="clearHistoryBtn">
-        🗑 Clear History
-      </button>
+<option>Blog Article</option>
 
-      <div class="output" id="output">
+<option>Social Media Post</option>
 
-        Your AI content will appear here...
+<option>Email</option>
 
-      </div>
+<option>Product Description</option>
 
-    </div>
+</select>
 
+<select id="tone">
 
-    <!-- Bottom Cards -->
+<option>Professional</option>
 
-    <div class="bottomGrid">
+<option>Friendly</option>
 
-      <div class="card">
+<option>Creative</option>
 
-        <h3>Recent History</h3>
+</select>
 
-        <div id="historyList">
-          No history yet...
-        </div>
+<select id="length">
 
-      </div>
+<option>Short</option>
 
-      <div class="card">
+<option>Medium</option>
 
-        <h3>Usage</h3>
+<option>Long</option>
 
-<p>Today's Usage</p>
+</select>
 
-<h2 id="usageCount">0 / 20</h2>
+</div>
+
+<button id="generateBtn">
+✨ Generate Content
+</button>
+
+<button id="copyBtn">
+📋 Copy
+</button>
+
+<button id="clearHistoryBtn">
+🗑 Clear History
+</button>
+
+<div id="output" class="output">
+
+Your AI generated content will appear here...
+
+</div>
+
+</div>
+
+<!-- Bottom -->
+
+<div class="bottomGrid">
+
+<div class="card">
+
+<h3>Recent History</h3>
+
+<div id="historyList">
+
+No history yet...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Today's Usage</h3>
+
+<h2 id="usageCount">
+0 / 20
+</h2>
 
 <div class="progress">
-    <div class="progressBar" id="progressBar"></div>
+
+<div
+id="progressBar"
+class="progressBar">
+</div>
+
 </div>
 
 <p>Free Plan</p>
 
-      </div>
-
-    </div>
-
-  </main>
+</div>
 
 </div>
+
+</main>
+
+</div>
+
+<script>
+
+function logout(){
+
+window.location.href="login.html";
+
+}
+
+</script>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
