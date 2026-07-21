@@ -84,3 +84,104 @@ progressBar.style.width =
 // ===========================
 
 showHistory();
+// ===========================
+// Generate AI Content
+// ===========================
+
+if(generateBtn){
+
+generateBtn.addEventListener("click", async ()=>{
+
+const topic=document.getElementById("topic").value.trim();
+const type=document.getElementById("type").value;
+const tone=document.getElementById("tone").value;
+const length=document.getElementById("length").value;
+
+if(topic===""){
+
+alert("Please enter a topic.");
+
+return;
+
+}
+
+output.innerHTML="🤖 AI is writing...";
+
+try{
+
+const response=await fetch("/api/generate",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+prompt:`Write a ${length} ${type} in ${tone} tone about ${topic}.`
+
+})
+
+});
+
+const data=await response.json();
+
+if(!response.ok){
+
+throw new Error(data.error || "Server Error");
+
+}
+
+output.innerHTML=data.text;
+
+
+// Save History
+
+let history=
+
+JSON.parse(localStorage.getItem("contentHistory")) || [];
+
+history.unshift({
+
+topic,
+
+type,
+
+tone,
+
+length,
+
+date:new Date().toLocaleString()
+
+});
+
+if(history.length>20){
+
+history=history.slice(0,20);
+
+}
+
+localStorage.setItem(
+
+"contentHistory",
+
+JSON.stringify(history)
+
+);
+
+showHistory();
+
+}catch(error){
+
+console.error(error);
+
+output.innerHTML=
+
+"❌ "+error.message;
+
+}
+
+});
+
+}
