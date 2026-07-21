@@ -148,3 +148,17 @@ if (clearHistoryBtn) {
   });
 
 }
+const usageCount=document.getElementById("usageCount");
+const progressBar=document.getElementById("progressBar");
+
+if(usageCount && progressBar){
+
+const history=JSON.parse(localStorage.getItem("contentHistory"))||[];
+
+const used=Math.min(history.length,20);
+
+usageCount.innerText=`${used} / 20`;
+
+progressBar.style.width=(used*5)+"%";
+
+}
