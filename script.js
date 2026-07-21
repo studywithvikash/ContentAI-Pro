@@ -91,19 +91,6 @@ const response = await fetch("/api/generate", {
 });
 
 alert("Response received");
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-prompt:`Write a ${length} ${type} in ${tone} tone about ${topic}.`
-
-})
-
-});
 
 const data=await response.json();
 
