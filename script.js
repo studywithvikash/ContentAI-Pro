@@ -36,7 +36,7 @@ function showHistory() {
 // Generate Content
 if (generateBtn) {
 
-  generateBtn.addEventListener("click", function () {
+  generateBtn.addEventListener("click", async function () {
 
     const topic = document.getElementById("topic").value;
     const type = document.getElementById("type").value;
