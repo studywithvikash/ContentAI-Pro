@@ -79,7 +79,17 @@ try{
 
 alert("Button Clicked");
 alert("Sending request...");
-const response=await fetch("/api/generate",{
+
+const response = await fetch("/api/generate", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    prompt: `Write a ${length} ${type} in ${tone} tone about ${topic}.`
+  })
+});
+
 alert("Response received");
 method:"POST",
 
