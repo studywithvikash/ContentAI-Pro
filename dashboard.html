@@ -1,57 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ContentAI Pro Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContentAI Pro Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-  <h2>ContentAI Pro Dashboard</h2>
-  <button>Logout</button>
-</header>
+<div class="container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <h2 class="logo">🤖 ContentAI Pro</h2>
+
+    <ul class="menu">
+      <li class="active">🏠 Dashboard</li>
+      <li>✍ AI Writer</li>
+      <li>🕒 History</li>
+      <li>⭐ Upgrade</li>
+      <li>⚙ Settings</li>
+    </ul>
+
+  </aside>
 
 
-<h1>AI Content Writer</h1>
+  <!-- Main Content -->
+  <main class="main">
 
-<input type="text" id="topic" placeholder="Enter your topic">
+    <header class="topbar">
 
-<select id="type">
-  <option>Blog Article</option>
-  <option>Social Media Post</option>
-  <option>Email</option>
-  <option>Product Description</option>
-</select>
+      <h2>AI Content Generator</h2>
 
-<select id="tone">
-  <option>Professional</option>
-  <option>Friendly</option>
-  <option>Creative</option>
-</select>
+      <button class="logoutBtn">
+        Logout
+      </button>
 
-<select id="length">
-  <option>Short</option>
-  <option>Medium</option>
-  <option>Long</option>
-</select>
+    </header>
 
-<button id="generateBtn">
-Generate Content ✨
-</button>
 
-<div class="output" id="output">
-Your AI content will appear here...
-</div>
+    <!-- Generator Card -->
 
-<button id="copyBtn">📋 Copy Content</button>
-<button id="clearHistoryBtn">🗑️ Clear History</button>
-<div class="history">
-<h2>Content History</h2>
+    <div class="card">
 
-<div id="historyList">
-No history yet...
-</div>
+      <h3>Create Content</h3>
+
+      <input
+      type="text"
+      id="topic"
+      placeholder="Enter your topic">
+
+      <div class="row">
+
+        <select id="type">
+          <option>Blog Article</option>
+          <option>Social Media Post</option>
+          <option>Email</option>
+          <option>Product Description</option>
+        </select>
+
+        <select id="tone">
+          <option>Professional</option>
+          <option>Friendly</option>
+          <option>Creative</option>
+        </select>
+
+        <select id="length">
+          <option>Short</option>
+          <option>Medium</option>
+          <option>Long</option>
+        </select>
+
+      </div>
+
+      <button id="generateBtn">
+        ✨ Generate Content
+      </button>
+
+      <button id="copyBtn">
+        📋 Copy
+      </button>
+
+      <button id="clearHistoryBtn">
+        🗑 Clear History
+      </button>
+
+      <div class="output" id="output">
+
+        Your AI content will appear here...
+
+      </div>
+
+    </div>
+
+
+    <!-- Bottom Cards -->
+
+    <div class="bottomGrid">
+
+      <div class="card">
+
+        <h3>Recent History</h3>
+
+        <div id="historyList">
+          No history yet...
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Usage</h3>
+
+        <p>Today's Usage</p>
+
+        <h1>8 / 20</h1>
+
+        <p>Free Plan</p>
+
+      </div>
+
+    </div>
+
+  </main>
 
 </div>
 
