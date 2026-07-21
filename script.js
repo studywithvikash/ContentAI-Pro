@@ -1,3 +1,4 @@
+alert("Script Loaded");
 console.log("ContentAI Pro Started");
 
 // Elements
