@@ -51,25 +51,30 @@ if (generateBtn) {
 
     output.innerHTML = "✨ Creating your AI content...";
 
-    setTimeout(function () {
+    output.innerHTML = "🤖 AI is writing...";
 
-      let content = `
-        <h3>${type}</h3>
+try {
 
-        <p><b>Topic:</b> ${topic}</p>
+const response = await fetch("/api/generate",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+prompt:
+`Write a ${length} ${type} in ${tone} tone about ${topic}`
+})
+});
 
-        <p>
-        <b>Tone:</b> ${tone}<br>
-        <b>Length:</b> ${length}
-        </p>
+const data = await response.json();
 
-        <p>
-        ${topic} is an important topic in today's digital world.
-        This content is written in a ${tone.toLowerCase()} style.
-        You can expand and customize it further.
-        </p>
-      `;
+output.innerHTML = data.text;
 
+}catch(error){
+
+output.innerHTML="❌ AI Error. Please try again.";
+
+}
       output.innerHTML = content;
 
       let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
