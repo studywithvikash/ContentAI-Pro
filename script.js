@@ -185,3 +185,84 @@ output.innerHTML=
 });
 
 }
+// ===========================
+// Copy Content
+// ===========================
+
+if(copyBtn){
+
+copyBtn.addEventListener("click",async()=>{
+
+const text=output.innerText.trim();
+
+if(text==="" || text==="Your AI generated content will appear here..."){
+
+alert("Nothing to copy!");
+
+return;
+
+}
+
+try{
+
+await navigator.clipboard.writeText(text);
+
+alert("✅ Content Copied!");
+
+}catch(error){
+
+const textarea=document.createElement("textarea");
+
+textarea.value=text;
+
+document.body.appendChild(textarea);
+
+textarea.select();
+
+document.execCommand("copy");
+
+document.body.removeChild(textarea);
+
+alert("✅ Content Copied!");
+
+}
+
+});
+
+}
+
+
+// ===========================
+// Clear History
+// ===========================
+
+if(clearHistoryBtn){
+
+clearHistoryBtn.addEventListener("click",()=>{
+
+const ok=confirm("Are you sure you want to clear all history?");
+
+if(!ok) return;
+
+localStorage.removeItem("contentHistory");
+
+showHistory();
+
+output.innerHTML="Your AI generated content will appear here...";
+
+alert("✅ History Cleared");
+
+});
+
+}
+
+
+// ===========================
+// Auto Refresh Usage
+// ===========================
+
+window.addEventListener("load",()=>{
+
+showHistory();
+
+});
