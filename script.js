@@ -76,6 +76,8 @@ output.innerHTML="🤖 AI is writing...";
 
 try{
 
+alert("Button Clicked");
+
 const response=await fetch("/api/generate",{
 
 method:"POST",
