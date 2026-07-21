@@ -1,11 +1,16 @@
 console.log("ContentAI Pro Started");
 
+// Elements
 const generateBtn = document.getElementById("generateBtn");
+const copyBtn = document.getElementById("copyBtn");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
-// Show History
+// ---------- Show History ----------
 function showHistory() {
 
   const historyList = document.getElementById("historyList");
+  const usageCount = document.getElementById("usageCount");
+  const progressBar = document.getElementById("progressBar");
 
   if (!historyList) return;
 
@@ -13,157 +18,168 @@ function showHistory() {
 
   if (history.length === 0) {
     historyList.innerHTML = "No history yet...";
-    return;
-  }
+  } else {
 
-  historyList.innerHTML = "";
+    historyList.innerHTML = "";
 
-  history.forEach(function(item) {
+    history.forEach(item => {
 
-    historyList.innerHTML += `
+      historyList.innerHTML += `
       <div class="history-item">
         <h4>${item.topic}</h4>
-        <p>Type: ${item.type}</p>
-        <p>Tone: ${item.tone}</p>
+        <p>${item.type}</p>
         <small>${item.date}</small>
       </div>
-    `;
+      `;
 
-  });
+    });
+
+  }
+
+  // Usage Counter
+  if (usageCount && progressBar) {
+
+    const used = Math.min(history.length,20);
+
+    usageCount.innerText = `${used} / 20`;
+
+    progressBar.style.width = (used*5)+"%";
+
+  }
 
 }
 
-// Generate Content
-if (generateBtn) {
+showHistory();
 
-  generateBtn.addEventListener("click", async function () {
 
-    const topic = document.getElementById("topic").value;
-    const type = document.getElementById("type").value;
-    const tone = document.getElementById("tone").value;
-    const length = document.getElementById("length").value;
-    const output = document.getElementById("output");
+// ---------- Generate ----------
+if(generateBtn){
 
-    if (topic.trim() === "") {
-      output.innerHTML = "Please enter a topic first.";
-      return;
-    }
+generateBtn.addEventListener("click", async function(){
 
-    output.innerHTML = "✨ Creating your AI content...";
+const topic=document.getElementById("topic").value.trim();
+const type=document.getElementById("type").value;
+const tone=document.getElementById("tone").value;
+const length=document.getElementById("length").value;
 
-    output.innerHTML = "🤖 AI is writing...";
+const output=document.getElementById("output");
 
-try {
+if(topic===""){
 
-const response = await fetch("/api/generate",{
+output.innerHTML="Please enter a topic.";
+
+return;
+
+}
+
+output.innerHTML="🤖 AI is writing...";
+
+try{
+
+const response=await fetch("/api/generate",{
+
 method:"POST",
+
 headers:{
 "Content-Type":"application/json"
 },
+
 body:JSON.stringify({
-prompt:
-`Write a ${length} ${type} in ${tone} tone about ${topic}`
+
+prompt:`Write a ${length} ${type} in ${tone} tone about ${topic}.`
+
 })
+
 });
 
-const data = await response.json();
+const data=await response.json();
 
-output.innerHTML = data.text;
+if(!response.ok){
+
+throw new Error(data.error || "Server Error");
+
+}
+
+output.innerHTML=data.text;
+
+// Save History
+
+let history=JSON.parse(localStorage.getItem("contentHistory")) || [];
+
+history.unshift({
+
+topic:topic,
+
+type:type,
+
+tone:tone,
+
+length:length,
+
+date:new Date().toLocaleString()
+
+});
+
+localStorage.setItem("contentHistory",JSON.stringify(history));
+
+showHistory();
 
 }catch(error){
 
-output.innerHTML="❌ AI Error. Please try again.";
+console.error(error);
 
-}
-      output.innerHTML = content;
-
-      let history = JSON.parse(localStorage.getItem("contentHistory")) || [];
-
-      history.unshift({
-        topic: topic,
-        type: type,
-        tone: tone,
-        length: length,
-        date: new Date().toLocaleString()
-      });
-
-      localStorage.setItem("contentHistory", JSON.stringify(history));
-
-      showHistory();
-
-    }, 1500);
-
-  });
+output.innerHTML="❌ "+error.message;
 
 }
 
-// Load history when page opens
+});
+
+}
+
+
+// ---------- Copy ----------
+
+if(copyBtn){
+
+copyBtn.addEventListener("click",function(){
+
+const text=document.getElementById("output").innerText;
+
+navigator.clipboard.writeText(text)
+
+.then(()=>{
+
+alert("✅ Copied!");
+
+})
+
+.catch(()=>{
+
+alert("Copy Failed");
+
+});
+
+});
+
+}
+
+
+// ---------- Clear History ----------
+
+if(clearHistoryBtn){
+
+clearHistoryBtn.addEventListener("click",function(){
+
+if(confirm("Clear all history?")){
+
+localStorage.removeItem("contentHistory");
+
 showHistory();
-const copyBtn = document.getElementById("copyBtn");
 
-if (copyBtn) {
-
-  copyBtn.addEventListener("click", function () {
-
-    const output = document.getElementById("output");
-
-    const text = output.innerText;
-
-    if (navigator.clipboard) {
-
-      navigator.clipboard.writeText(text)
-        .then(function () {
-          alert("✅ Content copied!");
-        })
-        .catch(function () {
-          alert("❌ Copy failed.");
-        });
-
-    } else {
-
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-
-      alert("✅ Content copied!");
-    }
-
-  });
+alert("History Cleared");
 
 }
-const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
-if (clearHistoryBtn) {
-
-  clearHistoryBtn.addEventListener("click", function () {
-
-    if (confirm("Are you sure you want to clear all history?")) {
-
-      localStorage.removeItem("contentHistory");
-
-      showHistory();
-
-      alert("✅ History cleared successfully!");
-
-    }
-
-  });
-
-}
-const usageCount=document.getElementById("usageCount");
-const progressBar=document.getElementById("progressBar");
-
-if(usageCount && progressBar){
-
-const history=JSON.parse(localStorage.getItem("contentHistory"))||[];
-
-const used=Math.min(history.length,20);
-
-usageCount.innerText=`${used} / 20`;
-
-progressBar.style.width=(used*5)+"%";
+});
 
 }
