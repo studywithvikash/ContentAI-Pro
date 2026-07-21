@@ -1,28 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ContentAI Pro Login</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - ContentAI Pro</title>
 
+<link rel="stylesheet" href="style.css">
+
+</head>
 <body>
 
-<div class="login-box">
+<div class="login-container">
 
-<h2>ContentAI Pro</h2>
+<div class="login-card">
 
-<input type="email" placeholder="Email">
+<h1>🤖 ContentAI Pro</h1>
 
-<input type="password" placeholder="Password">
+<p>Welcome Back</p>
 
-<a href="dashboard.html">
-  <button>Login</button>
-</a>
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
 
-<p>Don't have an account? Sign Up</p>
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
+
+<button id="loginBtn">
+Login
+</button>
+
+<p class="small">
+Demo Login (No Authentication)
+</p>
 
 </div>
 
+</div>
+
+<script>
+
+document.getElementById("loginBtn").addEventListener("click",function(){
+
+window.location.href="dashboard.html";
+
+});
+
+</script>
 
 </body>
 </html>
