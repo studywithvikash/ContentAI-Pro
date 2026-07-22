@@ -15,7 +15,9 @@ export default async function handler(req, res) {
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://content-ai-pro.vercel.app",
+        "HTTP-Referer": process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000",
         "X-Title": "ContentAI Pro"
       },
       body: JSON.stringify({
