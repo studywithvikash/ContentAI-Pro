@@ -92,24 +92,23 @@ if(generateBtn){
 
 generateBtn.addEventListener("click", async ()=>{
 
-const topic=document.getElementById("topic").value.trim();
-const type=document.getElementById("type").value;
-const tone=document.getElementById("tone").value;
-const length=document.getElementById("length").value;
+const prompt = document.getElementById("prompt").value;
+const type = document.getElementById("contentType").value;
+const tone = document.getElementById("tone").value;
+const length = document.getElementById("length").value;
 
-if(topic===""){
-
-alert("Please enter a topic.");
-
-return;
-
-}
-
-output.innerHTML="🤖 AI is writing...";
-
-try{
-
-const response=await fetch("/api/generate",{
+const response = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        prompt,
+        type,
+        tone,
+        length
+    })
+});
 
 method:"POST",
 
