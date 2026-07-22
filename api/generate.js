@@ -1,35 +1,15 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method Not Allowed"
-    });
-  }
+const finalPrompt = `
+You are a professional AI content writer.
 
-  try {
-    const { prompt } = req.body;
+Content Type: ${type}
+Tone: ${tone}
+Length: ${length}
 
-    const response = await fetch(
-      "https://throbbing-mouse-eb03.nayakbhai5439.workers.dev",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          prompt
-        })
-      }
-    );
+Topic:
+${prompt}
 
-    const data = await response.json();
-
-    res.status(200).json({
-      text: data.text
-    });
-
-  } catch (err) {
-    res.status(500).json({
-      error: err.message
-    });
-  }
-}
+Write high-quality content only.
+`;
+body: JSON.stringify({
+  prompt: finalPrompt
+})
