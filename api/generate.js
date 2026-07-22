@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      https://api-inference.huggingface.co/models/distilgpt2
+      "https://api-inference.huggingface.co/models/google/flan-t5-base",
       {
         method: "POST",
         headers: {
@@ -31,9 +31,7 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(response.status).json({
-        error: data.error || "Hugging Face API Error"
-      });
+      return res.status(response.status).json(data);
     }
 
     return res.status(200).json({
@@ -42,9 +40,9 @@ export default async function handler(req, res) {
         : data.generated_text || "No response generated."
     });
 
-  } catch (err) {
+  } catch (error) {
     return res.status(500).json({
-      error: err.message
+      error: error.message
     });
   }
 }
