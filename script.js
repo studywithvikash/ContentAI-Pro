@@ -97,3 +97,29 @@ themeToggle.addEventListener("click", () => {
     }
 
 });
+downloadPdfBtn.addEventListener("click", () => {
+
+    const content = output.innerText;
+
+    if (!content || content === "Your AI generated content will appear here...") {
+        alert("Generate content first.");
+        return;
+    }
+
+    const printWindow = window.open("", "_blank");
+
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>ContentAI Pro</title>
+        </head>
+        <body style="font-family:Arial;padding:30px;">
+            <pre style="white-space:pre-wrap;">${content}</pre>
+        </body>
+        </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.print();
+
+});
