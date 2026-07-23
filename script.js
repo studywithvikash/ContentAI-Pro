@@ -1,3 +1,12 @@
+const selectedTemplate = localStorage.getItem("selectedTemplate");
+
+if(selectedTemplate){
+
+document.getElementById("type").value = selectedTemplate;
+
+localStorage.removeItem("selectedTemplate");
+
+}
 const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 const generateBtn = document.getElementById("generateBtn");
 const copyBtn = document.getElementById("copyBtn");
