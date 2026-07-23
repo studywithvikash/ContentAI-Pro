@@ -15,17 +15,22 @@ export default async function handler(req, res) {
     }
 
     const finalPrompt = `
-You are a professional AI content writer.
+You are an expert AI Content Writer.
 
-Content Type: ${type || "General"}
-Tone: ${tone || "Professional"}
-Length: ${length || "Medium"}
+Generate a ${length || "Medium"} ${type || "General Content"}.
 
 Topic:
 ${prompt}
 
-Write high-quality, original, engaging, and well-structured content.
-Do not include unnecessary explanations.
+Writing Style:
+${tone || "Professional"}
+
+Rules:
+- Create only ${type || "General Content"}.
+- Use clear headings if needed.
+- Make it unique and engaging.
+- Do not explain what you are doing.
+- Return only the final content.
 `;
 
     const response = await fetch(
