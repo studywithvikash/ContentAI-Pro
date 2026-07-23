@@ -1,267 +1,85 @@
-console.log("ContentAI Pro Started");
-
-// ===========================
-// Elements
-// ===========================
-
 const generateBtn = document.getElementById("generateBtn");
 const copyBtn = document.getElementById("copyBtn");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
 const output = document.getElementById("output");
-
 const historyList = document.getElementById("historyList");
-
 const usageCount = document.getElementById("usageCount");
-
 const progressBar = document.getElementById("progressBar");
 
+let history = [];
+let usage = 0;
 
-// ===========================
-// Show History
-// ===========================
+generateBtn.addEventListener("click", async () => {
 
-function showHistory(){
+    const prompt = document.getElementById("topic").value.trim();
+    const type = document.getElementById("type").value;
+    const tone = document.getElementById("tone").value;
+    const length = document.getElementById("length").value;
 
-let history =
-JSON.parse(localStorage.getItem("contentHistory")) || [];
+    if (!prompt) {
+        alert("Please enter a topic.");
+        return;
+    }
 
-if(history.length===0){
+    output.innerHTML = "⏳ Generating...";
 
-historyList.innerHTML=
-"No history yet...";
+    try {
 
-}else{
+        const response = await fetch("/api/generate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                prompt,
+                type,
+                tone,
+                length
+            })
+        });
 
-historyList.innerHTML="";
+        const data = await response.json();
 
-history.forEach(item=>{
+        if (data.error) {
+            output.innerHTML = "❌ " + data.error;
+            return;
+        }
 
-historyList.innerHTML += `
-<div class="history-item">
+        output.innerHTML = data.text;
 
-<h4>${item.topic}</h4>
+        history.unshift(prompt);
 
-<p>${item.type}</p>
+        historyList.innerHTML = history
+            .map(item => `<div>• ${item}</div>`)
+            .join("");
 
-<small>${item.date}</small>
+        usage++;
 
-</div>
-`;
+        usageCount.innerHTML = `${usage} / 20`;
 
-});
+        progressBar.style.width = `${usage * 5}%`;
 
-}
+    } catch (err) {
 
-updateUsage();
+        output.innerHTML = "❌ " + err.message;
 
-}
-
-
-// ===========================
-// Usage Counter
-// ===========================
-
-function updateUsage(){
-
-let history =
-JSON.parse(localStorage.getItem("contentHistory")) || [];
-
-const used =
-Math.min(history.length,20);
-
-usageCount.innerText =
-`${used} / 20`;
-
-progressBar.style.width =
-(used*5)+"%";
-
-}
-
-
-// ===========================
-// Load on Start
-// ===========================
-
-showHistory();
-// ===========================
-// Generate AI Content
-// ===========================
-
-if(generateBtn){
-
-generateBtn.addEventListener("click", async ()=>{
-
-const prompt = document.getElementById("prompt").value;
-const type = document.getElementById("contentType").value;
-const tone = document.getElementById("tone").value;
-const length = document.getElementById("length").value;
-
-const response = await fetch("/api/generate", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        prompt,
-        type,
-        tone,
-        length
-    })
-});
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-prompt:`Write a ${length} ${type} in ${tone} tone about ${topic}.`
-
-})
+    }
 
 });
 
-const data=await response.json();
+copyBtn.addEventListener("click", () => {
 
-if(!response.ok){
+    navigator.clipboard.writeText(output.innerText);
 
-throw new Error(data.error || "Server Error");
-
-}
-
-output.innerHTML=data.text;
-
-
-// Save History
-
-let history=
-
-JSON.parse(localStorage.getItem("contentHistory")) || [];
-
-history.unshift({
-
-topic,
-
-type,
-
-tone,
-
-length,
-
-date:new Date().toLocaleString()
+    alert("Copied!");
 
 });
 
-if(history.length>20){
+clearHistoryBtn.addEventListener("click", () => {
 
-history=history.slice(0,20);
+    history = [];
 
-}
-
-localStorage.setItem(
-
-"contentHistory",
-
-JSON.stringify(history)
-
-);
-
-showHistory();
-
-}catch(error){
-
-console.error(error);
-
-output.innerHTML=
-
-"❌ "+error.message;
-
-}
-
-});
-
-}
-// ===========================
-// Copy Content
-// ===========================
-
-if(copyBtn){
-
-copyBtn.addEventListener("click",async()=>{
-
-const text=output.innerText.trim();
-
-if(text==="" || text==="Your AI generated content will appear here..."){
-
-alert("Nothing to copy!");
-
-return;
-
-}
-
-try{
-
-await navigator.clipboard.writeText(text);
-
-alert("✅ Content Copied!");
-
-}catch(error){
-
-const textarea=document.createElement("textarea");
-
-textarea.value=text;
-
-document.body.appendChild(textarea);
-
-textarea.select();
-
-document.execCommand("copy");
-
-document.body.removeChild(textarea);
-
-alert("✅ Content Copied!");
-
-}
-
-});
-
-}
-
-
-// ===========================
-// Clear History
-// ===========================
-
-if(clearHistoryBtn){
-
-clearHistoryBtn.addEventListener("click",()=>{
-
-const ok=confirm("Are you sure you want to clear all history?");
-
-if(!ok) return;
-
-localStorage.removeItem("contentHistory");
-
-showHistory();
-
-output.innerHTML="Your AI generated content will appear here...";
-
-alert("✅ History Cleared");
-
-});
-
-}
-
-
-// ===========================
-// Auto Refresh Usage
-// ===========================
-
-window.addEventListener("load",()=>{
-
-showHistory();
+    historyList.innerHTML = "No history yet...";
 
 });
