@@ -250,3 +250,258 @@ font-size:13px;
 opacity:.8;
 
 }
+/* ===========================
+Analytics Cards
+=========================== */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+margin-bottom:30px;
+
+}
+
+.stat-card{
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(18px);
+
+padding:25px;
+
+border-radius:20px;
+
+transition:.3s;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-6px);
+
+}
+
+.stat-card h3{
+
+font-size:16px;
+
+font-weight:500;
+
+opacity:.9;
+
+margin-bottom:10px;
+
+}
+
+.stat-card h1{
+
+font-size:34px;
+
+font-weight:700;
+
+}
+
+.premium{
+
+background:linear-gradient(135deg,#ff8a00,#ff3d00);
+
+}
+
+.premium button{
+
+margin-top:15px;
+
+padding:12px 22px;
+
+background:white;
+
+color:#ff3d00;
+
+border-radius:12px;
+
+font-weight:700;
+
+}
+
+.premium button:hover{
+
+transform:scale(1.05);
+
+}
+
+/* ===========================
+Writer Card
+=========================== */
+
+.writer-card{
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(20px);
+
+padding:30px;
+
+border-radius:24px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+margin-bottom:30px;
+
+}
+
+.writer-card h2{
+
+margin-bottom:20px;
+
+font-size:28px;
+
+}
+
+.writer-card input{
+
+width:100%;
+
+padding:18px;
+
+border-radius:14px;
+
+margin-bottom:20px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+}
+
+.writer-card input::placeholder{
+
+color:rgba(255,255,255,.7);
+
+}
+
+.row{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:15px;
+
+margin-bottom:20px;
+
+}
+
+.row select{
+
+padding:15px;
+
+border-radius:14px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+}
+
+.row option{
+
+color:black;
+
+}
+
+.buttons{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.buttons button{
+
+padding:14px 24px;
+
+border-radius:14px;
+
+font-size:15px;
+
+font-weight:600;
+
+}
+
+#generateBtn{
+
+background:#22c55e;
+
+color:white;
+
+}
+
+#copyBtn{
+
+background:#2563eb;
+
+color:white;
+
+}
+
+#downloadPdfBtn{
+
+background:#7c3aed;
+
+color:white;
+
+}
+
+#exportHistoryBtn{
+
+background:#f59e0b;
+
+color:white;
+
+}
+
+.buttons button:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+
+}
+
+/* ===========================
+Output
+=========================== */
+
+.output{
+
+background:rgba(0,0,0,.25);
+
+padding:20px;
+
+border-radius:18px;
+
+min-height:250px;
+
+line-height:1.8;
+
+font-size:15px;
+
+white-space:pre-wrap;
+
+overflow:auto;
+
+border:1px solid rgba(255,255,255,.15);
+
+}
