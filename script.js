@@ -1,3 +1,4 @@
+const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 const generateBtn = document.getElementById("generateBtn");
 const copyBtn = document.getElementById("copyBtn");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
