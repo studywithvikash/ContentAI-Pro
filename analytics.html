@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Analytics | ContentAI Pro</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+🤖 <span>ContentAI Pro</span>
+</div>
+
+<ul>
+
+<li onclick="window.location.href='dashboard.html'">
+🏠 Dashboard
+</li>
+
+<li onclick="window.location.href='chat.html'">
+💬 AI Chat
+</li>
+
+<li>
+🖼 AI Images
+</li>
+
+<li class="active">
+📊 Analytics
+</li>
+
+<li>
+📄 Templates
+</li>
+
+<li>
+⚙ Settings
+</li>
+
+<li>
+⭐ Upgrade
+</li>
+
+<li onclick="window.location.href='login.html'">
+🚪 Logout
+</li>
+
+</ul>
+
+</aside>
+
+<!-- Main -->
+
+<main class="content">
+
+<header class="topbar">
+
+<div>
+
+<h2>📊 Analytics Dashboard</h2>
+
+<p>Your AI usage overview</p>
+
+</div>
+
+</header>
+
+<section class="stats">
+
+<div class="stat-card">
+
+<h3>Total AI Generations</h3>
+
+<h1 id="totalGenerations">0</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total History</h3>
+
+<h1 id="historyCount">0</h1>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Chats</h3>
+
+<h1 id="chatCount">0</h1>
+
+</div>
+
+<div class="stat-card premium">
+
+<h3>Plan</h3>
+
+<h1>FREE</h1>
+
+</div>
+
+</section>
+
+<div class="history-card">
+
+<h2>Today's Usage</h2>
+
+<div class="progress">
+
+<div
+class="progressBar"
+id="progressBar">
+
+</div>
+
+</div>
+
+<p id="usageText">
+0 / 20 Used
+</p>
+
+</div>
+
+<div class="history-card">
+
+<h2>Recent Activity</h2>
+
+<div id="activity">
+
+No Activity Yet...
+
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+const usage =
+Number(localStorage.getItem("usage")) || 0;
+
+const history =
+JSON.parse(localStorage.getItem("history")) || [];
+
+const chats =
+JSON.parse(localStorage.getItem("chatHistory")) || [];
+
+document.getElementById("totalGenerations").innerHTML=usage;
+
+document.getElementById("historyCount").innerHTML=history.length;
+
+document.getElementById("chatCount").innerHTML=chats.length;
+
+document.getElementById("usageText").innerHTML=
+usage+" / 20 Used";
+
+document.getElementById("progressBar").style.width=
+(usage*5)+"%";
+
+if(history.length>0){
+
+document.getElementById("activity").innerHTML=
+
+history.slice(0,10)
+
+.map(item=>`<div>✅ ${item}</div>`)
+
+.join("");
+
+}
+
+</script>
+
+</body>
+
+</html>
