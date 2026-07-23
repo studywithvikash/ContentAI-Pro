@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, type, tone, length } = req.body;
+    const { prompt, type, tone, length, language } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
