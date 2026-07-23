@@ -32,11 +32,12 @@ generateBtn.addEventListener("click", async () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                prompt,
-                type,
-                tone,
-                length
-            })
+    prompt,
+    type,
+    tone,
+    length,
+    language
+})
         });
 const language = document.getElementById("language").value;
         const data = await response.json();
