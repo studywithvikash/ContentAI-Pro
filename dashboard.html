@@ -6,35 +6,71 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ContentAI Pro Dashboard</title>
+<title>ContentAI Pro v2.0</title>
 
 <link rel="stylesheet" href="style.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard">
 
 <!-- Sidebar -->
 
 <aside class="sidebar">
 
-<h2 class="logo">
-🤖 ContentAI Pro
-</h2>
+<div class="logo">
 
-<ul class="menu">
+🤖 <span>ContentAI Pro</span>
 
-<li class="active">🏠 Dashboard</li>
+</div>
 
-<li>✍ AI Writer</li>
+<ul>
 
-<li>🕒 History</li>
+<li class="active">
+<i class="fas fa-home"></i>
+Dashboard
+</li>
 
-<li>⭐ Upgrade</li>
+<li onclick="window.location.href='chat.html'">
+<i class="fas fa-comments"></i>
+AI Chat
+</li>
 
-<li onclick="logout()">🚪 Logout</li>
+<li>
+<i class="fas fa-pen"></i>
+AI Writer
+</li>
+
+<li>
+<i class="fas fa-image"></i>
+AI Images
+<span class="soon">Soon</span>
+</li>
+
+<li>
+<i class="fas fa-clock"></i>
+History
+</li>
+
+<li>
+<i class="fas fa-crown"></i>
+Upgrade
+</li>
+
+<li onclick="logout()">
+<i class="fas fa-right-from-bracket"></i>
+Logout
+</li>
 
 </ul>
 
@@ -42,150 +78,27 @@
 
 <!-- Main -->
 
-<main class="main">
+<main class="content">
 
 <header class="topbar">
 
-<h2>AI Content Generator</h2>
-<button id="themeToggle">🌙 Dark Mode</button>
-</header>
+<div>
 
-<!-- Generator -->
+<h2>Welcome 👋</h2>
 
-<div class="card">
-
-<h3>Create Content</h3>
-
-<input
-type="text"
-id="topic"
-placeholder="Enter Topic">
-
-<div class="row">
-
-<select id="type">
-<option>Blog Article</option>
-<option>SEO Blog</option>
-<option>YouTube Script</option>
-<option>YouTube Title</option>
-<option>YouTube Description</option>
-<option>Instagram Caption</option>
-<option>Instagram Hashtags</option>
-<option>Facebook Post</option>
-<option>LinkedIn Post</option>
-<option>X (Twitter) Post</option>
-<option>Email</option>
-<option>Cold Email</option>
-<option>Product Description</option>
-<option>Amazon Product Listing</option>
-<option>Advertisement Copy</option>
-<option>Google Ads</option>
-<option>Facebook Ads</option>
-<option>Landing Page Copy</option>
-<option>Business Proposal</option>
-<option>Resume</option>
-<option>Cover Letter</option>
-<option>Press Release</option>
-<option>Story</option>
-<option>Essay</option>
-<option>Poem</option>
-<option>Speech</option>
-<option>News Article</option>
-<option>Rewrite Text</option>
-<option>Summarize</option>
-<option>Grammar Fix</option>
-<option>Translate</option>
-</select>
-
-<select id="tone">
-
-<option>Professional</option>
-
-<option>Friendly</option>
-
-<option>Creative</option>
-
-</select>
-
-<select id="length">
-
-<option>Short</option>
-
-<option>Medium</option>
-
-<option>Long</option>
-
-</select>
-<select id="language">
-<option>English</option>
-<option>Hindi</option>
-<option>Spanish</option>
-<option>French</option>
-<option>German</option>
-<option>Arabic</option>
-<option>Japanese</option>
-<option>Chinese</option>
-<option>Russian</option>
-<option>Portuguese</option>
-</select>
-</div>
-
-<button id="generateBtn">
-✨ Generate Content
-</button>
-
-<button id="copyBtn">
-📋 Copy
-</button>
-<button id="downloadPdfBtn">
-📄 Download PDF
-</button>
-<button id="clearHistoryBtn">
-🗑 Clear History
-</button>
-<button id="exportHistoryBtn">
-📥 Export History
-</button>
-<div id="output" class="output">
-
-Your AI generated content will appear here...
+<p>Create amazing AI content in seconds.</p>
 
 </div>
 
-</div>
+<div class="profile">
 
-<!-- Bottom -->
+<img
+src="https://ui-avatars.com/api/?name=Vikas&background=2563eb&color=fff"
+alt="avatar">
 
-<div class="bottomGrid">
+<div>
 
-<div class="card">
-
-<h3>Recent History</h3>
-
-<div id="historyList">
-
-No history yet...
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Today's Usage</h3>
-
-<h2 id="usageCount">
-0 / 20
-</h2>
-
-<div class="progress">
-
-<div
-id="progressBar"
-class="progressBar">
-</div>
-
-</div>
+<b>Vikas</b>
 
 <p>Free Plan</p>
 
@@ -193,22 +106,116 @@ class="progressBar">
 
 </div>
 
-</main>
+</header>
+
+<!-- Analytics -->
+
+<section class="stats">
+
+<div class="stat-card">
+
+<h3>AI Generations</h3>
+
+<h1 id="usageCount">0 / 20</h1>
 
 </div>
 
-<script>
+<div class="stat-card">
 
-function logout(){
+<h3>History</h3>
 
-window.location.href="login.html";
+<h1 id="historyCount">0</h1>
 
-}
+</div>
 
-</script>
+<div class="stat-card">
 
-<script src="script.js"></script>
+<h3>Chats</h3>
 
-</body>
+<h1>0</h1>
 
-</html>
+</div>
+
+<div class="stat-card premium">
+
+<h3>Upgrade</h3>
+
+<button>Go Pro 🚀</button>
+
+</div>
+
+</section>
+
+<!-- AI Writer -->
+
+<section class="writer-card">
+
+<h2>✨ AI Writer</h2>
+
+<input
+type="text"
+id="topic"
+placeholder="Enter your topic...">
+
+<div class="row">
+
+<select id="type">
+<option>Blog Article</option>
+<option>YouTube Script</option>
+<option>Instagram Caption</option>
+<option>Email</option>
+<option>Product Description</option>
+<option>SEO Article</option>
+<option>Facebook Ad</option>
+<option>LinkedIn Post</option>
+</select>
+
+<select id="tone">
+<option>Professional</option>
+<option>Friendly</option>
+<option>Creative</option>
+<option>Funny</option>
+</select>
+
+<select id="length">
+<option>Short</option>
+<option>Medium</option>
+<option>Long</option>
+</select>
+
+<select id="language">
+<option>English</option>
+<option>Hindi</option>
+<option>Spanish</option>
+<option>French</option>
+</select>
+
+</div>
+
+<div class="buttons">
+
+<button id="generateBtn">
+✨ Generate
+</button>
+
+<button id="copyBtn">
+📋 Copy
+</button>
+
+<button id="downloadPdfBtn">
+📄 PDF
+</button>
+
+<button id="exportHistoryBtn">
+📥 History
+</button>
+
+</div>
+
+<div id="output" class="output">
+
+AI Generated Content...
+
+</div>
+
+</section>
