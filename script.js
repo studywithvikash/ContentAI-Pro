@@ -84,3 +84,16 @@ clearHistoryBtn.addEventListener("click", () => {
     historyList.innerHTML = "No history yet...";
 
 });
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", () => {
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+        themeToggle.innerHTML="☀️ Light Mode";
+    }else{
+        themeToggle.innerHTML="🌙 Dark Mode";
+    }
+
+});
