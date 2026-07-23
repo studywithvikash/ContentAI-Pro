@@ -9,7 +9,7 @@ const usageCount = document.getElementById("usageCount");
 const progressBar = document.getElementById("progressBar");
 
 let history = JSON.parse(localStorage.getItem("history")) || [];
-let usage = 0;
+let usage = Number(localStorage.getItem("usage")) || 0;
 
 generateBtn.addEventListener("click", async () => {
 
