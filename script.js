@@ -16,7 +16,7 @@ generateBtn.addEventListener("click", async () => {
     const type = document.getElementById("type").value;
     const tone = document.getElementById("tone").value;
     const length = document.getElementById("length").value;
-
+const language = document.getElementById("language").value;
     if (!prompt) {
         alert("Please enter a topic.");
         return;
