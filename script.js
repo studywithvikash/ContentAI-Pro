@@ -129,3 +129,28 @@ downloadPdfBtn.addEventListener("click", () => {
     printWindow.print();
 
 });
+exportHistoryBtn.addEventListener("click", () => {
+
+    if (history.length === 0) {
+        alert("No history to export.");
+        return;
+    }
+
+    const text = history.join("\n\n------------------\n\n");
+
+    const blob = new Blob([text], {
+        type: "text/plain"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "ContentAI-History.txt";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+});
