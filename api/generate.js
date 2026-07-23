@@ -28,6 +28,7 @@ Language:
 ${language || "English"}
 Rules:
 - Create only ${type || "General Content"}.
+- Write the content only in ${language || "English"}.
 - Use clear headings if needed.
 - Make it unique and engaging.
 - Do not explain what you are doing.
