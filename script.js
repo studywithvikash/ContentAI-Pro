@@ -38,7 +38,7 @@ generateBtn.addEventListener("click", async () => {
                 length
             })
         });
-
+const language = document.getElementById("language").value;
         const data = await response.json();
 
         if (data.error) {
