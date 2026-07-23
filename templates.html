@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Templates | ContentAI Pro</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+
+<div class="logo">
+🤖 <span>ContentAI Pro</span>
+</div>
+
+<ul>
+
+<li onclick="location.href='dashboard.html'">
+🏠 Dashboard
+</li>
+
+<li onclick="location.href='chat.html'">
+💬 AI Chat
+</li>
+
+<li class="active">
+📄 Templates
+</li>
+
+<li onclick="location.href='analytics.html'">
+📊 Analytics
+</li>
+
+<li>
+🖼 AI Images
+</li>
+
+<li>
+⚙ Settings
+</li>
+
+<li>
+⭐ Upgrade
+</li>
+
+<li onclick="location.href='login.html'">
+🚪 Logout
+</li>
+
+</ul>
+
+</aside>
+
+<main class="content">
+
+<header class="topbar">
+
+<div>
+
+<h2>📄 AI Templates</h2>
+
+<p>Choose a template and start writing instantly.</p>
+
+</div>
+
+</header>
+
+<div class="tool-grid">
+
+<div class="tool-card">
+<h3>✍ Blog Writer</h3>
+<p>Create SEO friendly blog posts.</p>
+<button onclick="useTemplate('Blog Article')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>🎥 YouTube Script</h3>
+<p>Create engaging YouTube scripts.</p>
+<button onclick="useTemplate('YouTube Script')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>📱 Instagram Caption</h3>
+<p>Generate viral captions.</p>
+<button onclick="useTemplate('Instagram Caption')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>📧 Email Writer</h3>
+<p>Professional business emails.</p>
+<button onclick="useTemplate('Email')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>🛒 Product Description</h3>
+<p>Sell products with AI.</p>
+<button onclick="useTemplate('Product Description')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>📈 SEO Article</h3>
+<p>Rank higher on Google.</p>
+<button onclick="useTemplate('SEO Blog')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>💼 Business Proposal</h3>
+<p>Create winning proposals.</p>
+<button onclick="useTemplate('Business Proposal')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>📄 Resume</h3>
+<p>Create a professional resume.</p>
+<button onclick="useTemplate('Resume')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>💬 Facebook Post</h3>
+<p>Create engaging Facebook posts.</p>
+<button onclick="useTemplate('Facebook Post')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>🐦 X (Twitter)</h3>
+<p>Write short viral tweets.</p>
+<button onclick="useTemplate('X (Twitter) Post')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>📰 Press Release</h3>
+<p>Professional press releases.</p>
+<button onclick="useTemplate('Press Release')">Use Template</button>
+</div>
+
+<div class="tool-card">
+<h3>🌍 Translate</h3>
+<p>Translate into multiple languages.</p>
+<button onclick="useTemplate('Translate')">Use Template</button>
+</div>
+
+</div>
+
+</main>
+
+</div>
+
+<script>
+
+function useTemplate(template){
+
+localStorage.setItem("selectedTemplate",template);
+
+window.location.href="dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
