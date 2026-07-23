@@ -10,7 +10,13 @@ const progressBar = document.getElementById("progressBar");
 
 let history = JSON.parse(localStorage.getItem("history")) || [];
 let usage = Number(localStorage.getItem("usage")) || 0;
+usageCount.innerHTML = `${usage} / 20`;
+progressBar.style.width = `${usage * 5}%`;
 
+historyList.innerHTML =
+history.length > 0
+? history.map(item => `<div>• ${item}</div>`).join("")
+: "No history yet...";
 generateBtn.addEventListener("click", async () => {
 
     const prompt = document.getElementById("topic").value.trim();
