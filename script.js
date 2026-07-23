@@ -56,7 +56,7 @@ generateBtn.addEventListener("click", async () => {
         output.innerHTML = data.text;
 
         history.unshift(prompt);
-
+        localStorage.setItem("history", JSON.stringify(history));
         historyList.innerHTML = history
             .map(item => `<div>• ${item}</div>`)
             .join("");
