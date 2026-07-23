@@ -33,7 +33,7 @@ generateBtn.addEventListener("click", async () => {
             return;
         }
 
-        output.textContent = data.text;
+        hljs.highlightElement(output);
 
     } catch (err) {
 
