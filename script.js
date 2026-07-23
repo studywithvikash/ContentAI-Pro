@@ -2,7 +2,7 @@ const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 const generateBtn = document.getElementById("generateBtn");
 const copyBtn = document.getElementById("copyBtn");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
-
+const exportHistoryBtn = document.getElementById("exportHistoryBtn");
 const output = document.getElementById("output");
 const historyList = document.getElementById("historyList");
 const usageCount = document.getElementById("usageCount");
