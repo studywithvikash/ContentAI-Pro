@@ -86,7 +86,7 @@ copyBtn.addEventListener("click", () => {
 clearHistoryBtn.addEventListener("click", () => {
 
     history = [];
-
+    localStorage.removeItem("history");
     historyList.innerHTML = "No history yet...";
 
 });
