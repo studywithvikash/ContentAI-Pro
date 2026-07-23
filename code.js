@@ -28,12 +28,46 @@ generateBtn.addEventListener("click", async () => {
 
         const data = await response.json();
 
-        if (data.error) {
-            output.textContent = data.error;
-            return;
-        }
+if (data.error) {
+    output.textContent = data.error;
+    return;
+}
 
-        hljs.highlightElement(output);
+// AI response दिखाओ
+output.textContent = data.text;
+
+// Language class बदलो
+output.className = "";
+
+switch(language){
+    case "HTML":
+        output.classList.add("language-html");
+        break;
+    case "CSS":
+        output.classList.add("language-css");
+        break;
+    case "JavaScript":
+        output.classList.add("language-javascript");
+        break;
+    case "Python":
+        output.classList.add("language-python");
+        break;
+    case "C++":
+        output.classList.add("language-cpp");
+        break;
+    case "Java":
+        output.classList.add("language-java");
+        break;
+    case "PHP":
+        output.classList.add("language-php");
+        break;
+    case "React":
+        output.classList.add("language-javascript");
+        break;
+}
+
+// Highlight लागू करो
+hljs.highlightElement(output);
 
     } catch (err) {
 
