@@ -10,7 +10,6 @@ localStorage.removeItem("selectedTemplate");
 const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 const generateBtn = document.getElementById("generateBtn");
 const copyBtn = document.getElementById("copyBtn");
-const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 const exportHistoryBtn = document.getElementById("exportHistoryBtn");
 const output = document.getElementById("output");
 const historyList = document.getElementById("historyList");
@@ -92,26 +91,7 @@ copyBtn.addEventListener("click", () => {
 
 });
 
-clearHistoryBtn.addEventListener("click", () => {
 
-    history = [];
-    localStorage.removeItem("history");
-    historyList.innerHTML = "No history yet...";
-
-});
-const themeToggle = document.getElementById("themeToggle");
-
-themeToggle.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark");
-
-    if(document.body.classList.contains("dark")){
-        themeToggle.innerHTML="☀️ Light Mode";
-    }else{
-        themeToggle.innerHTML="🌙 Dark Mode";
-    }
-
-});
 downloadPdfBtn.addEventListener("click", () => {
 
     const content = output.innerText;
