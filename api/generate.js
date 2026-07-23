@@ -24,7 +24,8 @@ ${prompt}
 
 Writing Style:
 ${tone || "Professional"}
-
+Language:
+${language || "English"}
 Rules:
 - Create only ${type || "General Content"}.
 - Use clear headings if needed.
