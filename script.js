@@ -62,7 +62,7 @@ generateBtn.addEventListener("click", async () => {
             .join("");
 
         usage++;
-
+        localStorage.setItem("usage", usage);
         usageCount.innerHTML = `${usage} / 20`;
 
         progressBar.style.width = `${usage * 5}%`;
