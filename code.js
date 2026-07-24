@@ -170,3 +170,32 @@ previewBtn.addEventListener("click", () => {
     previewWindow.document.close();
 
 });
+saveProjectBtn.addEventListener("click", () => {
+
+    const prompt = document.getElementById("codePrompt").value.trim();
+    const language = document.getElementById("language").value;
+    const code = output.textContent;
+
+    if (!prompt || !code || code.includes("Generated code")) {
+        alert("Generate code first.");
+        return;
+    }
+
+    const projects =
+        JSON.parse(localStorage.getItem("projects")) || [];
+
+    projects.unshift({
+        title: prompt,
+        language: language,
+        code: code,
+        created: new Date().toLocaleString()
+    });
+
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(projects)
+    );
+
+    alert("✅ Project Saved!");
+
+});
