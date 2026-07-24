@@ -64,6 +64,72 @@ Generated code will appear here...
 </pre>
 
 </div>
+  <script>
+const currentProject = JSON.parse(localStorage.getItem("currentProject"));
+
+if(currentProject){
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+document.getElementById("codePrompt").value=currentProject.title;
+
+document.getElementById("language").value=currentProject.language;
+
+document.getElementById("codeOutput").textContent=currentProject.code;
+
+if(window.hljs){
+
+document.getElementById("codeOutput").removeAttribute("data-highlighted");
+
+document.getElementById("codeOutput").className="";
+
+switch(currentProject.language){
+
+case "HTML":
+document.getElementById("codeOutput").classList.add("language-html");
+break;
+
+case "CSS":
+document.getElementById("codeOutput").classList.add("language-css");
+break;
+
+case "JavaScript":
+document.getElementById("codeOutput").classList.add("language-javascript");
+break;
+
+case "Python":
+document.getElementById("codeOutput").classList.add("language-python");
+break;
+
+case "C++":
+document.getElementById("codeOutput").classList.add("language-cpp");
+break;
+
+case "Java":
+document.getElementById("codeOutput").classList.add("language-java");
+break;
+
+case "PHP":
+document.getElementById("codeOutput").classList.add("language-php");
+break;
+
+case "React":
+document.getElementById("codeOutput").classList.add("language-javascript");
+break;
+
+}
+
+hljs.highlightElement(document.getElementById("codeOutput"));
+
+}
+
+});
+
+}
+</script>
+
+<script src="code.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
 
 <script src="code.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
