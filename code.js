@@ -1,3 +1,4 @@
+const downloadBtn = document.getElementById("downloadCodeBtn");
 const generateBtn = document.getElementById("generateCodeBtn");
 const copyBtn = document.getElementById("copyCodeBtn");
 const output = document.getElementById("codeOutput");
@@ -82,5 +83,67 @@ copyBtn.addEventListener("click", () => {
     navigator.clipboard.writeText(output.textContent);
 
     alert("✅ Code copied!");
+
+});
+downloadBtn.addEventListener("click", () => {
+
+    const code = output.textContent;
+
+    if (!code || code.includes("Generated code")) {
+        alert("Generate code first.");
+        return;
+    }
+
+    const language = document.getElementById("language").value;
+
+    let fileName = "code.txt";
+
+    switch(language){
+
+        case "HTML":
+            fileName = "index.html";
+            break;
+
+        case "CSS":
+            fileName = "style.css";
+            break;
+
+        case "JavaScript":
+            fileName = "script.js";
+            break;
+
+        case "Python":
+            fileName = "main.py";
+            break;
+
+        case "C++":
+            fileName = "main.cpp";
+            break;
+
+        case "Java":
+            fileName = "Main.java";
+            break;
+
+        case "PHP":
+            fileName = "index.php";
+            break;
+
+        case "React":
+            fileName = "App.jsx";
+            break;
+    }
+
+    const blob = new Blob([code], { type: "text/plain" });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = fileName;
+
+    a.click();
+
+    URL.revokeObjectURL(url);
 
 });
