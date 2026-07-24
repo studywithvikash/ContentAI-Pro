@@ -120,3 +120,113 @@ document.getElementById("language")
     );
 
 });
+// ====================================
+// AI Generate
+// ====================================
+
+const generateBtn = document.getElementById("generateCodeBtn");
+const copyBtn = document.getElementById("copyCodeBtn");
+const downloadBtn = document.getElementById("downloadCodeBtn");
+const previewBtn = document.getElementById("previewBtn");
+const saveBtn = document.getElementById("saveProjectBtn");
+const clearBtn = document.getElementById("clearBtn");
+const formatBtn = document.getElementById("formatBtn");
+
+generateBtn.onclick = async ()=>{
+
+const prompt=document.getElementById("codePrompt").value.trim();
+
+const language=document.getElementById("language").value;
+
+if(prompt===""){
+
+alert("Enter your coding request.");
+
+return;
+
+}
+
+document.getElementById("editorStatus").innerText="Generating...";
+
+try{
+
+const response=await fetch("/api/generate",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+prompt:`Generate only ${language} code for: ${prompt}. Return code only.`
+
+})
+
+});
+
+const data=await response.json();
+
+if(data.error){
+
+alert(data.error);
+
+document.getElementById("editorStatus").innerText="Error";
+
+return;
+
+}
+
+editor.setValue(data.text || "");
+
+document.getElementById("editorStatus").innerText="Completed";
+
+}
+catch(err){
+
+alert(err.message);
+
+document.getElementById("editorStatus").innerText="Failed";
+
+}
+
+};
+
+// ====================================
+// Copy
+// ====================================
+
+copyBtn.onclick=()=>{
+
+navigator.clipboard.writeText(editor.getValue());
+
+alert("✅ Code Copied");
+
+};
+
+// ====================================
+// Clear
+// ====================================
+
+clearBtn.onclick=()=>{
+
+if(confirm("Clear editor?")){
+
+editor.setValue("");
+
+updateEditorInfo();
+
+}
+
+};
+
+// ====================================
+// Format
+// ====================================
+
+formatBtn.onclick=()=>{
+
+editor.getAction("editor.action.formatDocument").run();
+
+};
