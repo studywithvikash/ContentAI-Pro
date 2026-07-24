@@ -116,7 +116,29 @@ placeholder="🔍 Search Projects...">
 <button id="favoriteBtn">
 ⭐ Favorites
 </button>
+document
+.getElementById("categoryFilter")
+.addEventListener("change", function(){
 
+const selected = this.value;
+
+if(selected === "All"){
+
+renderProjects(projects);
+
+return;
+
+}
+
+const filtered = projects.filter(project =>
+
+(project.category || "Other") === selected
+
+);
+
+renderProjects(filtered);
+
+});
 </div>
 
 <div id="projectList">
