@@ -126,14 +126,16 @@ list.innerHTML=data.map((p,index)=>`
 <p><b>Date:</b> ${p.created}</p>
 
 <button onclick="openProject(${index})">
-
 📂 Open
+</button>
 
+<button onclick="toggleFavorite(${index})">
+⭐ ${p.favorite ? "Unfavorite" : "Favorite"}
 </button>
 
 <button onclick="deleteProject(${index})">
-
 🗑 Delete
+</button>
 
 </button>
 
