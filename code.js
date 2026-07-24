@@ -3,6 +3,33 @@ const downloadBtn = document.getElementById("downloadCodeBtn");
 const generateBtn = document.getElementById("generateCodeBtn");
 const copyBtn = document.getElementById("copyCodeBtn");
 let editor;
+require.config({
+paths:{
+vs:"https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs"
+}
+});
+
+require(["vs/editor/editor.main"], function(){
+
+editor = monaco.editor.create(document.getElementById("editor"),{
+
+value:"// AI Generated Code will appear here...",
+
+language:"html",
+
+theme:"vs-dark",
+
+automaticLayout:true,
+
+fontSize:15,
+
+minimap:{
+enabled:true
+}
+
+});
+
+});
 const saveProjectBtn = document.getElementById("saveProjectBtn");
 generateBtn.addEventListener("click", async () => {
 
