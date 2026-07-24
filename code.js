@@ -372,25 +372,9 @@ alert("✅ Project Saved");
 // Open Saved Project
 // ====================================
 
-const currentProject=JSON.parse(localStorage.getItem("currentProject"));
-
-if(currentProject){
-
-window.addEventListener("load",()=>{
-
-document.getElementById("codePrompt").value=currentProject.title;
-
-document.getElementById("language").value=currentProject.language;
-
-document.getElementById("category").value=currentProject.category || "Other";
-
 setTimeout(()=>{
 
-if(editor){
-
-editor.setValue(currentProject.code);
-
-}
+if(editor
 
 },500);
 
