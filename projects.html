@@ -210,6 +210,32 @@ JSON.stringify(projects)
 renderProjects(projects);
 
 }
+  function renameProject(index){
+
+const newName = prompt(
+"Enter new project name:",
+projects[index].title
+);
+
+if(newName===null) return;
+
+const finalName = newName.trim();
+
+if(finalName===""){
+alert("Project name cannot be empty.");
+return;
+}
+
+projects[index].title = finalName;
+
+localStorage.setItem(
+"projects",
+JSON.stringify(projects)
+);
+
+renderProjects(projects);
+
+  }
 document
 .getElementById("searchProject")
 .addEventListener("input", function () {
