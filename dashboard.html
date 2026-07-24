@@ -6,17 +6,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ContentAI Pro v2.0</title>
+<title>ContentAI Pro v3.0</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
@@ -24,13 +21,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <div class="dashboard">
 
-<!-- Sidebar -->
+<!-- ================= Sidebar ================= -->
 
 <aside class="sidebar">
 
 <div class="logo">
 
-🤖 <span>ContentAI Pro</span>
+🤖
+
+<span>ContentAI Pro</span>
 
 </div>
 
@@ -41,59 +40,123 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 Dashboard
 </li>
 
-<li onclick="window.location.href='chat.html'">
+<li onclick="location.href='chat.html'">
 <i class="fas fa-comments"></i>
 AI Chat
 </li>
 
-<li>
-<i class="fas fa-pen"></i>
+<li onclick="location.href='writer.html'">
+<i class="fas fa-pen-nib"></i>
 AI Writer
 </li>
 
-<li onclick="window.location.href='images.html'">
+<li onclick="location.href='code.html'">
+<i class="fas fa-code"></i>
+AI Code
+</li>
+
+<li onclick="location.href='images.html'">
 <i class="fas fa-image"></i>
 AI Images
 </li>
 
-<li>
-<i class="fas fa-clock"></i>
-History
+<li onclick="location.href='projects.html'">
+<i class="fas fa-folder"></i>
+My Projects
 </li>
 
-<li>
+<li onclick="location.href='analytics.html'">
+<i class="fas fa-chart-line"></i>
+Analytics
+</li>
+
+<li onclick="location.href='templates.html'">
+<i class="fas fa-file-lines"></i>
+Templates
+</li>
+
+<li onclick="location.href='profile.html'">
+<i class="fas fa-user"></i>
+Profile
+</li>
+
+<li onclick="location.href='settings.html'">
+<i class="fas fa-gear"></i>
+Settings
+</li>
+
+<li class="premium-menu">
+
 <i class="fas fa-crown"></i>
-Upgrade
+
+Upgrade Pro
+
 </li>
 
 <li onclick="logout()">
+
 <i class="fas fa-right-from-bracket"></i>
+
 Logout
+
 </li>
 
 </ul>
 
 </aside>
 
-<!-- Main -->
+<!-- ================= Main ================= -->
 
 <main class="content">
 
+<!-- Topbar -->
+
 <header class="topbar">
 
-<div>
+<div class="left-top">
 
-<h2>Welcome 👋</h2>
+<h2>
 
-<p>Create amazing AI content in seconds.</p>
+Welcome Back 👋
+
+</h2>
+
+<p>
+
+Create smarter with AI
+
+</p>
 
 </div>
 
-<div class="profile">
+<div class="right-top">
+
+<div class="search-box">
+
+<i class="fas fa-search"></i>
+
+<input
+type="text"
+placeholder="Search tools...">
+
+</div>
+
+<button class="icon-btn">
+
+<i class="fas fa-bell"></i>
+
+</button>
+
+<button id="themeBtn" class="icon-btn">
+
+<i class="fas fa-moon"></i>
+
+</button>
+
+<div class="profile-mini">
 
 <img
-src="https://ui-avatars.com/api/?name=Vikas&background=2563eb&color=fff"
-alt="avatar">
+src="https://ui-avatars.com/api/?name=Vikas&background=2563eb&color=fff">
 
 <div>
 
@@ -105,267 +168,279 @@ alt="avatar">
 
 </div>
 
+</div>
+
 </header>
+<!-- ================= Statistics ================= -->
 
-<!-- Analytics -->
-
-<section class="stats">
-
-<div class="stat-card">
-
-<h3>AI Generations</h3>
-
-<h1 id="usageCount">0 / 20</h1>
-
-</div>
+<section class="stats-grid">
 
 <div class="stat-card">
 
-<h3>History</h3>
+<div class="stat-icon blue">
+<i class="fas fa-robot"></i>
+</div>
 
-<h1 id="historyCount">0</h1>
+<div>
+
+<h3 id="usageCount">0</h3>
+
+<p>AI Generations</p>
+
+</div>
 
 </div>
 
 <div class="stat-card">
 
-<h3>Chats</h3>
-
-<h1>0</h1>
-
+<div class="stat-icon green">
+<i class="fas fa-folder-open"></i>
 </div>
 
-<div class="stat-card premium">
+<div>
 
-<h3>Upgrade</h3>
+<h3 id="projectCount">0</h3>
 
-<button>Go Pro 🚀</button>
-
-</div>
-
-</section>
-
-<!-- AI Writer -->
-
-<section class="writer-card">
-
-<h2>✨ AI Writer</h2>
-
-<input
-type="text"
-id="topic"
-placeholder="Enter your topic...">
-
-<div class="row">
-
-<select id="type">
-<option>Blog Article</option>
-<option>YouTube Script</option>
-<option>Instagram Caption</option>
-<option>Email</option>
-<option>Product Description</option>
-<option>SEO Article</option>
-<option>Facebook Ad</option>
-<option>LinkedIn Post</option>
-</select>
-
-<select id="tone">
-<option>Professional</option>
-<option>Friendly</option>
-<option>Creative</option>
-<option>Funny</option>
-</select>
-
-<select id="length">
-<option>Short</option>
-<option>Medium</option>
-<option>Long</option>
-</select>
-
-<select id="language">
-<option>English</option>
-<option>Hindi</option>
-<option>Spanish</option>
-<option>French</option>
-</select>
-
-</div>
-
-<div class="buttons">
-
-<button id="generateBtn">
-✨ Generate
-</button>
-
-<button id="copyBtn">
-📋 Copy
-</button>
-
-<button id="downloadPdfBtn">
-📄 PDF
-</button>
-
-<button id="exportHistoryBtn">
-📥 History
-</button>
-
-</div>
-
-<div id="output" class="output">
-
-AI Generated Content...
-
-</div>
-
-</section>
-<!-- History + Analytics -->
-
-<section class="bottom-grid">
-
-<div class="history-card">
-
-<h2>🕒 Recent History</h2>
-
-<div id="historyList">
-
-No history available...
+<p>Projects</p>
 
 </div>
 
 </div>
 
-<div class="usage-card">
+<div class="stat-card">
 
-<h2>📊 Today's Usage</h2>
+<div class="stat-icon orange">
+<i class="fas fa-star"></i>
+</div>
 
-<h1 id="usageCount2">0 / 20</h1>
+<div>
 
-<div class="progress">
+<h3 id="favoriteCount">0</h3>
 
-<div
-id="progressBar"
-class="progressBar">
+<p>Favorites</p>
 
 </div>
 
 </div>
 
-<p>Free Plan</p>
+<div class="stat-card premium-card">
+
+<div>
+
+<h3>🚀 Upgrade Pro</h3>
+
+<p>Unlimited AI • Faster Responses • Premium Models</p>
 
 <button class="upgrade-btn">
 
-🚀 Upgrade to Pro
+Upgrade Now
 
 </button>
 
 </div>
 
+</div>
+
 </section>
 
-<!-- Quick Tools -->
+<!-- ================= Quick AI Tools ================= -->
 
-<section class="tools">
+<section class="tools-section">
 
-<h2>⚡ Quick Tools</h2>
+<h2>⚡ Quick AI Tools</h2>
 
 <div class="tool-grid">
 
-<div class="tool-card" onclick="window.location.href='dashboard.html'">
-✍️
-<h3>AI Writer</h3>
-<p>Create blogs, emails and content.</p>
-</div>
+<div class="tool-card" onclick="location.href='chat.html'">
 
-<div class="tool-card" onclick="window.location.href='chat.html'">
-💬
+<i class="fas fa-comments"></i>
+
 <h3>AI Chat</h3>
-<p>Talk with your AI assistant.</p>
+
+<p>Ask anything instantly.</p>
+
 </div>
 
-<div class="tool-card" onclick="window.location.href='images.html'">
-🎨
-<h3>AI Images</h3>
-<p>Generate AI images.</p>
+<div class="tool-card" onclick="location.href='writer.html'">
+
+<i class="fas fa-pen"></i>
+
+<h3>AI Writer</h3>
+
+<p>Create blogs & articles.</p>
+
 </div>
 
-<div class="tool-card" onclick="window.location.href='code.html'">
-💻
+<div class="tool-card" onclick="location.href='code.html'">
+
+<i class="fas fa-code"></i>
+
 <h3>AI Code</h3>
-<p>Generate HTML, CSS, JavaScript and more.</p>
-</div>
+
+<p>Generate code instantly.</p>
 
 </div>
 
-✍️
+<div class="tool-card" onclick="location.href='images.html'">
 
-<h3>Blog Writer</h3>
+<i class="fas fa-image"></i>
 
-<p>Create SEO optimized blogs instantly.</p>
+<h3>AI Images</h3>
 
-</div>
-
-<div class="tool-card">
-
-📱
-
-<h3>Social Media</h3>
-
-<p>Create viral captions and posts.</p>
+<p>Create AI artwork.</p>
 
 </div>
 
 <div class="tool-card">
 
-📧
+<i class="fas fa-language"></i>
 
-<h3>Email Writer</h3>
+<h3>Translator</h3>
 
-<p>Generate professional emails.</p>
+<p>Translate any language.</p>
 
 </div>
 
 <div class="tool-card">
 
-🛒
+<i class="fas fa-file-pdf"></i>
 
-<h3>Product Description</h3>
+<h3>PDF Reader</h3>
 
-<p>Sell products with better descriptions.</p>
+<p>Summarize PDF files.</p>
+
+</div>
+
+<div class="tool-card">
+
+<i class="fas fa-microphone"></i>
+
+<h3>Voice AI</h3>
+
+<p>Talk with AI.</p>
+
+</div>
+
+<div class="tool-card">
+
+<i class="fas fa-camera"></i>
+
+<h3>OCR Scanner</h3>
+
+<p>Extract text from images.</p>
 
 </div>
 
 </div>
 
 </section>
+
+<!-- ================= Recent Activity ================= -->
+
+<section class="activity-section">
+
+<h2>🕒 Recent Activity</h2>
+
+<div class="activity-card">
+
+<div class="activity-item">
+✅ Project Saved Successfully
+</div>
+
+<div class="activity-item">
+🤖 AI Code Generated
+</div>
+
+<div class="activity-item">
+🎨 AI Image Created
+</div>
+
+<div class="activity-item">
+📄 Blog Generated
+</div>
+
+</div>
+
+</section>
+``
+  <!-- ================= Footer ================= -->
+
+<footer class="dashboard-footer">
+
+<div>
+
+© 2026 <b>ContentAI Pro v3.0</b>
+
+</div>
+
+<div>
+
+<span id="serverStatus">
+
+🟢 Server Online
+
+</span>
+
+</div>
+
+</footer>
 
 </main>
 
 </div>
 
-<footer>
-
-<p>
-
-© 2026 <b>ContentAI Pro</b> • Powered by Cloudflare AI
-
-</p>
-
-</footer>
-
 <script>
 
-function logout(){
+// ================= Theme =================
 
-localStorage.clear();
+const themeBtn=document.getElementById("themeBtn");
 
-window.location.href="login.html";
+if(localStorage.getItem("theme")==="dark"){
+
+document.body.classList.add("dark");
+
+themeBtn.innerHTML='<i class="fas fa-sun"></i>';
 
 }
 
-</script>
+themeBtn.onclick=()=>{
 
-<script src="script.js"></script>
+document.body.classList.toggle("dark");
 
-</body>
+if(document.body.classList.contains("dark")){
 
-</html>
+localStorage.setItem("theme","dark");
+
+themeBtn.innerHTML='<i class="fas fa-sun"></i>';
+
+}else{
+
+localStorage.setItem("theme","light");
+
+themeBtn.innerHTML='<i class="fas fa-moon"></i>';
+
+}
+
+};
+
+// ================= Statistics =================
+
+const projects=
+
+JSON.parse(localStorage.getItem("projects"))||[];
+
+const history=
+
+JSON.parse(localStorage.getItem("history"))||[];
+
+document.getElementById("projectCount").innerText=
+
+projects.length;
+
+document.getElementById("favoriteCount").innerText=
+
+projects.filter(p=>p.favorite).length;
+
+document.getElementById("usageCount").innerText=
+
+history.length
