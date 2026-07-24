@@ -147,3 +147,25 @@ downloadBtn.addEventListener("click", () => {
     URL.revokeObjectURL(url);
 
 });
+previewBtn.addEventListener("click", () => {
+
+    const code = output.textContent;
+    const language = document.getElementById("language").value;
+
+    if (!code || code.includes("Generated code")) {
+        alert("Generate code first.");
+        return;
+    }
+
+    if (language !== "HTML") {
+        alert("Live Preview is available only for HTML.");
+        return;
+    }
+
+    const previewWindow = window.open("", "_blank");
+
+    previewWindow.document.open();
+    previewWindow.document.write(code);
+    previewWindow.document.close();
+
+});
