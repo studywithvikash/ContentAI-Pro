@@ -3,7 +3,7 @@ const downloadBtn = document.getElementById("downloadCodeBtn");
 const generateBtn = document.getElementById("generateCodeBtn");
 const copyBtn = document.getElementById("copyCodeBtn");
 const output = document.getElementById("codeOutput");
-
+const saveProjectBtn = document.getElementById("saveProjectBtn");
 generateBtn.addEventListener("click", async () => {
 
     const prompt = document.getElementById("codePrompt").value.trim();
