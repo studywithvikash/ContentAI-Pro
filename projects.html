@@ -152,7 +152,9 @@ projectList.innerHTML=data.map((project,index)=>`
 <button onclick="toggleFavorite(${index})">
 ${project.favorite ? "⭐ Unfavorite" : "☆ Favorite"}
 </button>
-
+<button onclick="renameProject(${index})">
+✏️ Rename
+</button>
 <button onclick="deleteProject(${index})">
 🗑 Delete
 </button>
