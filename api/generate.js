@@ -1,60 +1,135 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method Not Allowed"
-    });
-  }
 
-  try {
-    const { prompt, type, tone, length, language } = req.body;
+    // Allow POST only
+    if (req.method !== "POST") {
 
-    if (!prompt) {
-      return res.status(400).json({
-        error: "Prompt is required"
-      });
+        return res.status(405).json({
+            error: "Method Not Allowed"
+        });
+
     }
 
-    const finalPrompt = `
-You are an expert AI Content Writer.
+    try {
 
-Generate a ${length || "Medium"} ${type || "General Content"}.
+        const {
 
-Topic:
-${prompt}
+            prompt,
+            type,
+            tone,
+            length,
+            language
 
-Writing Style:
-${tone || "Professional"}
+        } = req.body;
+
+        if (!prompt || prompt.trim() === "") {
+
+            return res.status(400).json({
+                error: "Prompt is required"
+            });
+
+        }
+
+        const finalPrompt = `
+You are ContentAI Pro.
+
+Task:
+${type || "General"}
+
 Language:
 ${language || "English"}
+
+Tone:
+${tone || "Professional"}
+
+Length:
+${length || "Medium"}
+
+User Request:
+${prompt}
+
 Rules:
-- Create only ${type || "General Content"}.
-- Write the content only in ${language || "English"}.
-- Use clear headings if needed.
-- Make it unique and engaging.
-- Do not explain what you are doing.
-- Return only the final content.
+- Return only the final answer.
+- Do not use markdown.
+- Do not explain your process.
+- If code is requested, return only code.
 `;
 
-    const response = await fetch(
-      "https://throbbing-mouse-eb03.nayakbhai5439.workers.dev",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          prompt: finalPrompt
-        })
-      }
-    );
+        const workerResponse = await fetch(
 
-     console.log(data);
+            "https://throbbing-mouse-eb03.nayakbhai5439.workers.dev",
 
-return res.status(200).json(data);
+            {
 
-  } catch (err) {
-    return res.status(500).json({
-      error: err.message
-    });
-  }
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    prompt: finalPrompt
+
+                })
+
+            }
+
+        );
+              if (!workerResponse.ok) {
+
+            return res.status(workerResponse.status).json({
+
+                error: `Worker Error (${workerResponse.status})`
+
+            });
+
+        }
+
+        const data = await workerResponse.json();
+
+        console.log("Worker Response:", data);
+
+        const text =
+            data.text ||
+            data.response ||
+            data.result ||
+            data.output ||
+            data.answer ||
+            data.message ||
+            "";
+
+        if (!text) {
+
+            return res.status(500).json({
+
+                error: "Worker returned an empty response.",
+
+                debug: data
+
+            });
+
+        }
+
+        return res.status(200).json({
+
+            success: true,
+
+            text: text
+
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        return res.status(500).json({
+
+            error: err.message
+
+        });
+
+    }
+
 }
