@@ -154,7 +154,21 @@ Loading...
 <script>
 let projects =
 JSON.parse(localStorage.getItem("projects")) || [];
+function updateStats(){
 
+document.getElementById("totalProjects").innerText =
+projects.length;
+
+document.getElementById("favoriteProjects").innerText =
+projects.filter(p=>p.favorite).length;
+
+document.getElementById("totalCategories").innerText =
+new Set(projects.map(p=>p.category || "Other")).size;
+
+document.getElementById("totalLanguages").innerText =
+new Set(projects.map(p=>p.language)).size;
+
+}
 const projectList =
 document.getElementById("projectList");
 
