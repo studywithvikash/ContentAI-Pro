@@ -175,7 +175,8 @@ saveProjectBtn.addEventListener("click", () => {
     const prompt = document.getElementById("codePrompt").value.trim();
     const language = document.getElementById("language").value;
     const code = output.textContent;
-
+    const category =
+document.getElementById("category").value;
     if (!prompt || !code || code.includes("Generated code")) {
         alert("Generate code first.");
         return;
