@@ -159,7 +159,18 @@ JSON.stringify(projects)
 renderProjects(projects);
 
 }
+function toggleFavorite(index){
 
+projects[index].favorite = !projects[index].favorite;
+
+localStorage.setItem(
+"projects",
+JSON.stringify(projects)
+);
+
+renderProjects(projects);
+
+}
 function openProject(index){
 
 localStorage.setItem(
