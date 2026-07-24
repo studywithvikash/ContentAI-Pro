@@ -112,3 +112,99 @@ Loading...
 </div>
 
 <script>
+let projects =
+JSON.parse(localStorage.getItem("projects")) || [];
+
+const projectList =
+document.getElementById("projectList");
+
+function renderProjects(data){
+
+if(data.length===0){
+
+projectList.innerHTML=`
+<div class="history-card">
+<h2>📂 No Projects Found</h2>
+<p>Create and save your first AI project.</p>
+</div>
+`;
+
+return;
+
+}
+
+projectList.innerHTML=data.map((project,index)=>`
+
+<div class="history-card">
+
+<h2>${project.title}</h2>
+
+<p><b>💻 Language:</b> ${project.language}</p>
+
+<p><b>📅 Created:</b> ${project.created}</p>
+
+<div class="buttons">
+
+<button onclick="openProject(${index})">
+📂 Open
+</button>
+
+<button onclick="toggleFavorite(${index})">
+${project.favorite ? "⭐ Unfavorite" : "☆ Favorite"}
+</button>
+
+<button onclick="deleteProject(${index})">
+🗑 Delete
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+renderProjects(projects);
+
+function openProject(index){
+
+localStorage.setItem(
+"currentProject",
+JSON.stringify(projects[index])
+);
+
+location.href="code.html";
+
+}
+
+function deleteProject(index){
+
+if(!confirm("Delete this project?")){
+return;
+}
+
+projects.splice(index,1);
+
+localStorage.setItem(
+"projects",
+JSON.stringify(projects)
+);
+
+renderProjects(projects);
+
+}
+
+function toggleFavorite(index){
+
+projects[index].favorite =
+!projects[index].favorite;
+
+localStorage.setItem(
+"projects",
+JSON.stringify(projects)
+);
+
+renderProjects(projects);
+
+}
