@@ -54,7 +54,35 @@ generateBtn.addEventListener("click", async () => {
     language
 })
         });
-        const data = await response.json();
+        const response = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        prompt,
+        type,
+        tone,
+        length,
+        language
+    })
+});
+
+if (!response.ok) {
+    output.innerHTML = `❌ HTTP Error ${response.status}`;
+    return;
+}
+
+const data = await response.json();
+
+console.log(data);
+
+if (data.error) {
+    output.innerHTML = "❌ " + data.error;
+    return;
+}
+
+output.innerHTML = data.text || "No content generated.";
 
         if (data.error) {
             output.innerHTML = "❌ " + data.error;
