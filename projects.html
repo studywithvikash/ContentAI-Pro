@@ -155,7 +155,7 @@ Loading...
 let projects =
 JSON.parse(localStorage.getItem("projects")) || [];
 function updateStats(){
-
+updateStats();
 document.getElementById("totalProjects").innerText =
 projects.length;
 
