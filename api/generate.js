@@ -50,9 +50,7 @@ Rules:
 
      console.log(data);
 
-return res.status(200).json({
-  text: data.text || data.response || "No content generated."
-});
+return res.status(200).json(data);
 
   } catch (err) {
     return res.status(500).json({
