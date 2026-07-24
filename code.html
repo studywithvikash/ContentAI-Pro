@@ -4,153 +4,290 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>AI Code Generator</title>
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>AI Code Generator | ContentAI Pro</title>
 
 <link rel="stylesheet" href="style.css">
+
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard">
 
-<h1>💻 AI Code Generator</h1>
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+🤖 <span>ContentAI Pro</span>
+
+</div>
+
+<ul>
+
+<li onclick="location.href='dashboard.html'">
+
+🏠 Dashboard
+
+</li>
+
+<li onclick="location.href='chat.html'">
+
+💬 AI Chat
+
+</li>
+
+<li onclick="location.href='images.html'">
+
+🎨 AI Images
+
+</li>
+
+<li class="active">
+
+💻 AI Code
+
+</li>
+
+<li onclick="location.href='projects.html'">
+
+📂 My Projects
+
+</li>
+
+<li onclick="location.href='analytics.html'">
+
+📊 Analytics
+
+</li>
+
+<li onclick="location.href='templates.html'">
+
+📄 Templates
+
+</li>
+
+<li onclick="location.href='profile.html'">
+
+👤 Profile
+
+</li>
+
+<li onclick="location.href='settings.html'">
+
+⚙️ Settings
+
+</li>
+
+</ul>
+
+</aside>
+
+<!-- Main -->
+
+<main class="content">
+
+<header class="topbar">
+
+<h2>
+
+💻 AI Code Generator
+
+</h2>
+
+<p>
+
+Generate professional code with AI
+
+</p>
+
+</header>
+
+<div class="writer-card">
 
 <input
+
 id="codePrompt"
+
 type="text"
-placeholder="Example: Create a responsive login page">
+
+placeholder="Example : Create a responsive login page">
+
+<br><br>
+
+<div class="row">
 
 <select id="language">
 
 <option>HTML</option>
+
 <option>CSS</option>
+
 <option>JavaScript</option>
+
 <option>Python</option>
+
 <option>C++</option>
+
 <option>Java</option>
+
 <option>PHP</option>
+
 <option>React</option>
 
 </select>
+
 <select id="category">
 
 <option>Web Development</option>
-<option>Python</option>
-<option>Java</option>
+
 <option>JavaScript</option>
-<option>Mobile App</option>
+
+<option>Python</option>
+
+<option>Java</option>
+
 <option>AI</option>
+
+<option>Mobile App</option>
+
 <option>Game Development</option>
+
 <option>Other</option>
 
 </select>
+
+</div>
+
+<br>
+
+<div class="buttons">
+
 <button id="generateCodeBtn">
 
-⚡ Generate Code
+⚡ Generate
 
 </button>
 
 <button id="copyCodeBtn">
 
-📋 Copy Code
+📋 Copy
 
 </button>
+
 <button id="downloadCodeBtn">
-📥 Download Code
+
+📥 Download
+
 </button>
-  <button id="previewBtn">
-▶️ Live Preview
-  </button>
-  <button id="saveProjectBtn">
-💾 Save Project
-  </button>
-  <button onclick="window.location.href='projects.html'">
-📂 My Projects
-  </button>
-<div id="editor"
-style="
-height:600px;
-width:100%;
-border-radius:15px;
-overflow:hidden;
-margin-top:20px;
-"></div>
+
+<button id="previewBtn">
+
+▶ Preview
+
+</button>
+
+<button id="saveProjectBtn">
+
+💾 Save
+
+</button>
 
 </div>
-  <script>
-const currentProject = JSON.parse(localStorage.getItem("currentProject"));
 
-if(currentProject){
+<br>
+<!-- Monaco Editor -->
 
-window.addEventListener("DOMContentLoaded",()=>{
+<div class="editor-container">
 
-document.getElementById("codePrompt").value=currentProject.title;
+<div class="editor-topbar">
 
-document.getElementById("language").value=currentProject.language;
+<span>
+📝 Monaco Editor
+</span>
 
-document.getElementById("codeOutput").textContent=currentProject.code;
+<div>
 
-if(window.hljs){
+<button id="formatBtn">
+✨ Format
+</button>
 
-document.getElementById("codeOutput").removeAttribute("data-highlighted");
+<button id="clearBtn">
+🗑 Clear
+</button>
 
-document.getElementById("codeOutput").className="";
+</div>
 
-switch(currentProject.language){
+</div>
 
-case "HTML":
-document.getElementById("codeOutput").classList.add("language-html");
-break;
+<div id="editor"></div>
 
-case "CSS":
-document.getElementById("codeOutput").classList.add("language-css");
-break;
+</div>
 
-case "JavaScript":
-document.getElementById("codeOutput").classList.add("language-javascript");
-break;
+<br>
 
-case "Python":
-document.getElementById("codeOutput").classList.add("language-python");
-break;
+<div class="output-info">
 
-case "C++":
-document.getElementById("codeOutput").classList.add("language-cpp");
-break;
+<div class="info-card">
 
-case "Java":
-document.getElementById("codeOutput").classList.add("language-java");
-break;
+<b>Language</b>
 
-case "PHP":
-document.getElementById("codeOutput").classList.add("language-php");
-break;
+<p id="currentLanguage">
+HTML
+</p>
 
-case "React":
-document.getElementById("codeOutput").classList.add("language-javascript");
-break;
+</div>
 
-}
+<div class="info-card">
 
-hljs.highlightElement(document.getElementById("codeOutput"));
+<b>Status</b>
 
-}
+<p id="editorStatus">
+Ready
+</p>
 
-});
+</div>
 
-}
-</script>
+<div class="info-card">
+
+<b>Lines</b>
+
+<p id="lineCount">
+0
+</p>
+
+</div>
+
+<div class="info-card">
+
+<b>Characters</b>
+
+<p id="charCount">
+0
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</div>
 
 <script src="code.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
 
-<script src="code.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
 </body>
 
 </html>
