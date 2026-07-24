@@ -50,9 +50,9 @@ Rules:
 
      const data = await response.json();
 
-console.log("Worker Response:", data);
-
-return res.status(200).json(data);
+return res.status(200).json({
+  text: data.text || data.response || "No content generated."
+});
 
   } catch (err) {
     return res.status(500).json({
