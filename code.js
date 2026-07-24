@@ -2,7 +2,7 @@ const previewBtn = document.getElementById("previewBtn");
 const downloadBtn = document.getElementById("downloadCodeBtn");
 const generateBtn = document.getElementById("generateCodeBtn");
 const copyBtn = document.getElementById("copyCodeBtn");
-const output = document.getElementById("codeOutput");
+let editor;
 const saveProjectBtn = document.getElementById("saveProjectBtn");
 generateBtn.addEventListener("click", async () => {
 
