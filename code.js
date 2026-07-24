@@ -530,3 +530,76 @@ window.addEventListener("load", () => {
     }, 100);
 
 });
+// ======================================
+// Duplicate Project Check
+// ======================================
+
+function projectExists(title) {
+
+    const projects =
+        JSON.parse(localStorage.getItem("projects")) || [];
+
+    return projects.some(
+        p => p.title.toLowerCase() === title.toLowerCase()
+    );
+
+}
+
+// ======================================
+// Update Existing Project
+// ======================================
+
+function updateProject() {
+
+    const current =
+        JSON.parse(localStorage.getItem("currentProject"));
+
+    if (!current || !editor) return;
+
+    let projects =
+        JSON.parse(localStorage.getItem("projects")) || [];
+
+    const index = projects.findIndex(
+        p => p.id === current.id
+    );
+
+    if (index !== -1) {
+
+        projects[index].title = codePrompt.value.trim();
+
+        projects[index].language = language.value;
+
+        projects[index].category = category.value;
+
+        projects[index].code = editor.getValue();
+
+        projects[index].updated =
+            new Date().toLocaleString();
+
+        localStorage.setItem(
+            "projects",
+            JSON.stringify(projects)
+        );
+
+    }
+
+}
+
+// ======================================
+// Ctrl + S Save Shortcut
+// ======================================
+
+document.addEventListener("keydown", (e) => {
+
+    if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+
+        e.preventDefault();
+
+        saveBtn.click();
+
+    }
+
+});
+
+// ======================================
+//
