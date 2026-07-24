@@ -211,3 +211,12 @@ renderProjects(filtered);
 </body>
 
 </html>
+function showFavorites(){
+
+const favorites = projects.filter(
+p => p.favorite
+);
+
+renderProjects(favorites);
+
+}
