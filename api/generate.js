@@ -48,7 +48,7 @@ Rules:
       }
     );
 
-     const data = await response.json();
+     console.log(data);
 
 return res.status(200).json({
   text: data.text || data.response || "No content generated."
