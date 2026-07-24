@@ -48,11 +48,11 @@ Rules:
       }
     );
 
-    const data = await response.json();
+     const data = await response.json();
 
-    return res.status(200).json({
-      text: data.text || data.response || "No content generated."
-    });
+console.log("Worker Response:", data);
+
+return res.status(200).json(data);
 
   } catch (err) {
     return res.status(500).json({
