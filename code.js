@@ -186,11 +186,20 @@ document.getElementById("category").value;
         JSON.parse(localStorage.getItem("projects")) || [];
 
     projects.unshift({
-        title: prompt,
-        language: language,
-        code: code,
-        created: new Date().toLocaleString()
-    });
+
+title: prompt,
+
+category: category,
+
+language: language,
+
+code: code,
+
+created: new Date().toLocaleString(),
+
+favorite:false
+
+});
 
     localStorage.setItem(
         "projects",
