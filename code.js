@@ -230,3 +230,170 @@ formatBtn.onclick=()=>{
 editor.getAction("editor.action.formatDocument").run();
 
 };
+// ====================================
+// Download Code
+// ====================================
+
+downloadBtn.onclick = () => {
+
+const code = editor.getValue();
+
+if(code.trim()===""){
+
+alert("No code to download.");
+
+return;
+
+}
+
+const language=document.getElementById("language").value;
+
+let fileName="code.txt";
+
+switch(language){
+
+case "HTML":
+fileName="index.html";
+break;
+
+case "CSS":
+fileName="style.css";
+break;
+
+case "JavaScript":
+fileName="script.js";
+break;
+
+case "Python":
+fileName="main.py";
+break;
+
+case "Java":
+fileName="Main.java";
+break;
+
+case "C++":
+fileName="main.cpp";
+break;
+
+case "PHP":
+fileName="index.php";
+break;
+
+case "React":
+fileName="App.jsx";
+break;
+
+}
+
+const blob=new Blob([code],{type:"text/plain"});
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download=fileName;
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+};
+
+// ====================================
+// Live Preview
+// ====================================
+
+previewBtn.onclick=()=>{
+
+const language=document.getElementById("language").value;
+
+if(language!=="HTML"){
+
+alert("Live Preview works only for HTML.");
+
+return;
+
+}
+
+const preview=window.open();
+
+preview.document.open();
+
+preview.document.write(editor.getValue());
+
+preview.document.close();
+
+};
+
+// ====================================
+// Save Project
+// ====================================
+
+saveBtn.onclick=()=>{
+
+const title=document.getElementById("codePrompt").value.trim();
+
+if(title===""){
+
+alert("Enter project title.");
+
+return;
+
+}
+
+const projects=JSON.parse(localStorage.getItem("projects"))||[];
+
+projects.unshift({
+
+title:title,
+
+category:document.getElementById("category").value,
+
+language:document.getElementById("language").value,
+
+code:editor.getValue(),
+
+created:new Date().toLocaleString(),
+
+favorite:false
+
+});
+
+localStorage.setItem("projects",JSON.stringify(projects));
+
+alert("✅ Project Saved");
+
+};
+
+// ====================================
+// Open Saved Project
+// ====================================
+
+const currentProject=JSON.parse(localStorage.getItem("currentProject"));
+
+if(currentProject){
+
+window.addEventListener("load",()=>{
+
+document.getElementById("codePrompt").value=currentProject.title;
+
+document.getElementById("language").value=currentProject.language;
+
+document.getElementById("category").value=currentProject.category || "Other";
+
+setTimeout(()=>{
+
+if(editor){
+
+editor.setValue(currentProject.code);
+
+}
+
+},500);
+
+});
+
+}
