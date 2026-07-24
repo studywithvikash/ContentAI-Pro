@@ -178,7 +178,7 @@ return;
 
 }
 
-editor.setValue(data.text || "");
+editor.getModel().setValue(data.text || "");
 
 document.getElementById("editorStatus").innerText="Completed";
 
