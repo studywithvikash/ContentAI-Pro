@@ -208,3 +208,43 @@ JSON.stringify(projects)
 renderProjects(projects);
 
 }
+document
+.getElementById("searchProject")
+.addEventListener("input", function () {
+
+const value = this.value.toLowerCase();
+
+const filtered = projects.filter(project =>
+project.title.toLowerCase().includes(value) ||
+project.language.toLowerCase().includes(value)
+);
+
+renderProjects(filtered);
+
+});
+
+document
+.getElementById("allBtn")
+.addEventListener("click", () => {
+
+renderProjects(projects);
+
+});
+
+document
+.getElementById("favoriteBtn")
+.addEventListener("click", () => {
+
+const favorites = projects.filter(
+project => project.favorite
+);
+
+renderProjects(favorites);
+
+});
+
+</script>
+
+</body>
+
+</html>
