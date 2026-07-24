@@ -62,7 +62,7 @@
 
 </aside>
 
-<!-- Main -->
+<!-- Main Content -->
 
 <main class="content">
 
@@ -72,11 +72,51 @@
 
 <h2>📂 My Projects</h2>
 
-<p>Manage your saved AI projects</p>
+<p>Manage all your saved AI projects.</p>
 
 </div>
 
 </header>
+
+<!-- Statistics -->
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3 id="totalProjects">0</h3>
+
+<p>📂 Total Projects</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="favoriteProjects">0</h3>
+
+<p>⭐ Favorites</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="totalCategories">0</h3>
+
+<p>📁 Categories</p>
+
+</div>
+
+<div class="stat-card">
+
+<h3 id="totalLanguages">0</h3>
+
+<p>💻 Languages</p>
+
+</div>
+
+</div>
+
+<!-- Search & Filters -->
 
 <div class="writer-card">
 
@@ -86,27 +126,39 @@ id="searchProject"
 placeholder="🔍 Search Projects...">
 
 <br><br>
+
 <select id="categoryFilter">
 
 <option value="All">📂 All Categories</option>
 
 <option value="Web Development">Web Development</option>
 
+<option value="JavaScript">JavaScript</option>
+
+<option value="HTML">HTML</option>
+
+<option value="CSS">CSS</option>
+
 <option value="Python">Python</option>
 
 <option value="Java">Java</option>
 
-<option value="JavaScript">JavaScript</option>
+<option value="C++">C++</option>
 
-<option value="Mobile App">Mobile App</option>
+<option value="React">React</option>
+
+<option value="PHP">PHP</option>
 
 <option value="AI">AI</option>
+
+<option value="Mobile App">Mobile App</option>
 
 <option value="Game Development">Game Development</option>
 
 <option value="Other">Other</option>
 
 </select>
+
 <div class="buttons">
 
 <button id="allBtn">
@@ -116,27 +168,7 @@ placeholder="🔍 Search Projects...">
 <button id="favoriteBtn">
 ⭐ Favorites
 </button>
-{
 
-const selected = this.value;
-
-if(selected === "All"){
-
-renderProjects(projects);
-
-return;
-
-}
-
-const filtered = projects.filter(project =>
-
-(project.category || "Other") === selected
-
-);
-
-renderProjects(filtered);
-
-});
 </div>
 
 <div id="projectList">
@@ -144,7 +176,6 @@ renderProjects(filtered);
 Loading...
 
 </div>
-
 </div>
 
 </main>
@@ -152,23 +183,10 @@ Loading...
 </div>
 
 <script>
+
 let projects =
 JSON.parse(localStorage.getItem("projects")) || [];
-function updateStats(){
-updateStats();
-document.getElementById("totalProjects").innerText =
-projects.length;
 
-document.getElementById("favoriteProjects").innerText =
-projects.filter(p=>p.favorite).length;
-
-document.getElementById("totalCategories").innerText =
-new Set(projects.map(p=>p.category || "Other")).size;
-
-document.getElementById("totalLanguages").innerText =
-new Set(projects.map(p=>p.language)).size;
-
-}
 const projectList =
 document.getElementById("projectList");
 
@@ -177,10 +195,15 @@ function renderProjects(data){
 if(data.length===0){
 
 projectList.innerHTML=`
+
 <div class="history-card">
+
 <h2>📂 No Projects Found</h2>
+
 <p>Create and save your first AI project.</p>
+
 </div>
+
 `;
 
 return;
@@ -192,13 +215,9 @@ projectList.innerHTML=data.map((project,index)=>`
 <div class="history-card">
 
 <h2>${project.title}</h2>
-<p>
 
-<b>📂 Category:</b>
+<p><b>📂 Category:</b> ${project.category || "Other"}</p>
 
-${project.category || "Other"}
-
-</p>
 <p><b>💻 Language:</b> ${project.language}</p>
 
 <p><b>📅 Created:</b> ${project.created}</p>
@@ -212,9 +231,11 @@ ${project.category || "Other"}
 <button onclick="toggleFavorite(${index})">
 ${project.favorite ? "⭐ Unfavorite" : "☆ Favorite"}
 </button>
+
 <button onclick="renameProject(${index})">
-✏️ Rename
+✏ Rename
 </button>
+
 <button onclick="deleteProject(${index})">
 🗑 Delete
 </button>
@@ -226,8 +247,21 @@ ${project.favorite ? "⭐ Unfavorite" : "☆ Favorite"}
 `).join("");
 
 }
+  function updateStats(){
 
-renderProjects(projects);
+document.getElementById("totalProjects").innerText =
+projects.length;
+
+document.getElementById("favoriteProjects").innerText =
+projects.filter(p=>p.favorite).length;
+
+document.getElementById("totalCategories").innerText =
+new Set(projects.map(p=>p.category || "Other")).size;
+
+document.getElementById("totalLanguages").innerText =
+new Set(projects.map(p=>p.language)).size;
+
+}
 
 function openProject(index){
 
@@ -242,9 +276,7 @@ location.href="code.html";
 
 function deleteProject(index){
 
-if(!confirm("Delete this project?")){
-return;
-}
+if(!confirm("Delete this project?")) return;
 
 projects.splice(index,1);
 
@@ -254,6 +286,7 @@ JSON.stringify(projects)
 );
 
 renderProjects(projects);
+updateStats();
 
 }
 
@@ -268,9 +301,11 @@ JSON.stringify(projects)
 );
 
 renderProjects(projects);
+updateStats();
 
 }
-  function renameProject(index){
+
+function renameProject(index){
 
 const newName = prompt(
 "Enter new project name:",
@@ -282,8 +317,11 @@ if(newName===null) return;
 const finalName = newName.trim();
 
 if(finalName===""){
+
 alert("Project name cannot be empty.");
+
 return;
+
 }
 
 projects[index].title = finalName;
@@ -294,40 +332,24 @@ JSON.stringify(projects)
 );
 
 renderProjects(projects);
+updateStats();
 
-  }
-  <div class="stats-grid">
+}
 
-<div class="stat-card">
-<h3 id="totalProjects">0</h3>
-<p>📂 Total Projects</p>
-</div>
-
-<div class="stat-card">
-<h3 id="favoriteProjects">0</h3>
-<p>⭐ Favorites</p>
-</div>
-
-<div class="stat-card">
-<h3 id="totalCategories">0</h3>
-<p>📁 Categories</p>
-</div>
-
-<div class="stat-card">
-<h3 id="totalLanguages">0</h3>
-<p>💻 Languages</p>
-</div>
-
-</div>
 document
 .getElementById("searchProject")
-.addEventListener("input", function () {
+.addEventListener("input",function(){
 
-const value = this.value.toLowerCase();
+const value=this.value.toLowerCase();
 
-const filtered = projects.filter(project =>
+const filtered=projects.filter(project=>
+
 project.title.toLowerCase().includes(value) ||
-project.language.toLowerCase().includes(value)
+
+(project.language||"").toLowerCase().includes(value) ||
+
+(project.category||"").toLowerCase().includes(value)
+
 );
 
 renderProjects(filtered);
@@ -336,7 +358,7 @@ renderProjects(filtered);
 
 document
 .getElementById("allBtn")
-.addEventListener("click", () => {
+.addEventListener("click",()=>{
 
 renderProjects(projects);
 
@@ -344,31 +366,44 @@ renderProjects(projects);
 
 document
 .getElementById("favoriteBtn")
-.addEventListener("click", () => {
+.addEventListener("click",()=>{
 
-const favorites = projects.filter(
-project => project.favorite
-);
+const favorites=
+
+projects.filter(project=>project.favorite);
 
 renderProjects(favorites);
 
 });
-document.getElementById("categoryFilter").addEventListener("change", function () {
 
-const selected = this.value;
+document
+.getElementById("categoryFilter")
+.addEventListener("change",function(){
 
-if (selected === "All") {
-    renderProjects(projects);
-    return;
+const selected=this.value;
+
+if(selected==="All"){
+
+renderProjects(projects);
+
+return;
+
 }
 
-const filtered = projects.filter(project =>
-    (project.category || "Other") === selected
+const filtered=projects.filter(project=>
+
+(project.category||"Other")===selected
+
 );
 
 renderProjects(filtered);
 
 });
+
+renderProjects(projects);
+
+updateStats();
+
 </script>
 
 </body>
