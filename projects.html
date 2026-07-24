@@ -138,7 +138,13 @@ projectList.innerHTML=data.map((project,index)=>`
 <div class="history-card">
 
 <h2>${project.title}</h2>
+<p>
 
+<b>📂 Category:</b>
+
+${project.category || "Other"}
+
+</p>
 <p><b>💻 Language:</b> ${project.language}</p>
 
 <p><b>📅 Created:</b> ${project.created}</p>
