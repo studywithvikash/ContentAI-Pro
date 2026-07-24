@@ -119,3 +119,144 @@ Logout
 <p><b>Version:</b> ContentAI Pro v2.0</p>
 
 </div>
+<script>
+
+// =======================
+// Theme
+// =======================
+
+const themeBtn=document.getElementById("themeBtn");
+
+if(localStorage.getItem("theme")==="dark"){
+
+document.body.classList.add("dark");
+
+themeBtn.innerHTML="☀️ Light Mode";
+
+}
+
+themeBtn.onclick=()=>{
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+
+localStorage.setItem("theme","dark");
+
+themeBtn.innerHTML="☀️ Light Mode";
+
+}else{
+
+localStorage.setItem("theme","light");
+
+themeBtn.innerHTML="🌙 Dark Mode";
+
+}
+
+};
+
+// =======================
+// Language
+// =======================
+
+const language=document.getElementById("languageSetting");
+
+language.value=
+
+localStorage.getItem("language") || "English";
+
+language.onchange=()=>{
+
+localStorage.setItem(
+
+"language",
+
+language.value
+
+);
+
+alert("✅ Language Saved");
+
+};
+
+// =======================
+// Notifications
+// =======================
+
+const notify=
+
+document.getElementById("notificationToggle");
+
+notify.checked=
+
+localStorage.getItem("notification")==="true";
+
+notify.onchange=()=>{
+
+localStorage.setItem(
+
+"notification",
+
+notify.checked
+
+);
+
+};
+
+// =======================
+// Clear History
+// =======================
+
+document.getElementById("clearHistoryBtn").onclick=()=>{
+
+if(confirm("Delete all AI History?")){
+
+localStorage.removeItem("history");
+
+alert("✅ History Deleted");
+
+}
+
+};
+
+// =======================
+// Clear Projects
+// =======================
+
+document.getElementById("clearProjectsBtn").onclick=()=>{
+
+if(confirm("Delete all Projects?")){
+
+localStorage.removeItem("projects");
+
+alert("✅ Projects Deleted");
+
+}
+
+};
+
+// =======================
+// Logout
+// =======================
+
+document.getElementById("logoutBtn").onclick=()=>{
+
+if(confirm("Logout from ContentAI Pro?")){
+
+localStorage.removeItem("currentProject");
+
+location.href="login.html";
+
+}
+
+};
+
+</script>
+
+</main>
+
+</div>
+
+</body>
+
+</html>
