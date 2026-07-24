@@ -1,19 +1,44 @@
-const previewBtn = document.getElementById("previewBtn");
-const downloadBtn = document.getElementById("downloadCodeBtn");
+// ================================
+// ContentAI Pro v2.0
+// code.js - Part 1
+// Monaco Editor Setup
+// ================================
+
+// Buttons
 const generateBtn = document.getElementById("generateCodeBtn");
 const copyBtn = document.getElementById("copyCodeBtn");
+const downloadBtn = document.getElementById("downloadCodeBtn");
+const previewBtn = document.getElementById("previewBtn");
+const saveProjectBtn = document.getElementById("saveProjectBtn");
+
+// Inputs
+const promptInput = document.getElementById("codePrompt");
+const languageSelect = document.getElementById("language");
+const categorySelect = document.getElementById("category");
+
+// Monaco Editor
 let editor;
+
+// Monaco Loader
 require.config({
 paths:{
 vs:"https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs"
 }
 });
 
-require(["vs/editor/editor.main"], function(){
+// Create Editor
+require(["vs/editor/editor.main"],function(){
 
-editor = monaco.editor.create(document.getElementById("editor"),{
+editor = monaco.editor.create(
 
-value:"// AI Generated Code will appear here...",
+document.getElementById("editor"),
+
+{
+
+value:
+// Welcome to ContentAI Pro\n// AI Generated Code will appear here...
+
+,
 
 language:"html",
 
@@ -23,216 +48,310 @@ automaticLayout:true,
 
 fontSize:15,
 
+roundedSelection:true,
+
+scrollBeyondLastLine:false,
+
 minimap:{
 enabled:true
 }
 
-});
+}
+
+);
 
 });
-const saveProjectBtn = document.getElementById("saveProjectBtn");
+
+// Change Language Automatically
+languageSelect.addEventListener("change",()=>{
+
+if(!editor) return;
+
+let lang="plaintext";
+
+switch(languageSelect.value){
+
+case "HTML":
+lang="html";
+break;
+
+case "CSS":
+lang="css";
+break;
+
+case "JavaScript":
+lang="javascript";
+break;
+
+case "Python":
+lang="python";
+break;
+
+case "Java":
+lang="java";
+break;
+
+case "C++":
+lang="cpp";
+break;
+
+case "PHP":
+lang="php";
+break;
+
+case "React":
+lang="javascript";
+break;
+
+}
+
+monaco.editor.setModelLanguage(
+editor.getModel(),
+lang
+);
+
+});
+// ================================
+// AI Code Generation
+// ================================
+
 generateBtn.addEventListener("click", async () => {
 
-    const prompt = document.getElementById("codePrompt").value.trim();
-    const language = document.getElementById("language").value;
+const prompt = promptInput.value.trim();
 
-    if (!prompt) {
-        alert("Please enter your coding request.");
-        return;
-    }
+const language = languageSelect.value;
 
-    output.textContent = "⚡ Generating Code...";
+if(!prompt){
 
-    try {
+alert("Please enter your coding request.");
 
-        const response = await fetch("/api/generate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                prompt: `Generate only ${language} code for: ${prompt}. Do not include explanations unless necessary.`
-            })
-        });
+return;
 
-        const data = await response.json();
-
-if (data.error) {
-    output.textContent = data.error;
-    return;
 }
 
-// AI response दिखाओ
-output.textContent = data.text;
+editor.setValue("⚡ Generating AI Code...");
 
-// Language class बदलो
-output.className = "";
+try{
+
+const response = await fetch("/api/generate",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+prompt:`Generate only ${language} code for: ${prompt}. Do not include explanations unless necessary.`
+
+})
+
+});
+
+const data = await response.json();
+
+if(data.error){
+
+editor.setValue("❌ " + data.error);
+
+return;
+
+}
+
+editor.setValue(data.text);
+
+// Update Monaco Language
+
+let lang="plaintext";
 
 switch(language){
-    case "HTML":
-        output.classList.add("language-html");
-        break;
-    case "CSS":
-        output.classList.add("language-css");
-        break;
-    case "JavaScript":
-        output.classList.add("language-javascript");
-        break;
-    case "Python":
-        output.classList.add("language-python");
-        break;
-    case "C++":
-        output.classList.add("language-cpp");
-        break;
-    case "Java":
-        output.classList.add("language-java");
-        break;
-    case "PHP":
-        output.classList.add("language-php");
-        break;
-    case "React":
-        output.classList.add("language-javascript");
-        break;
+
+case "HTML":
+lang="html";
+break;
+
+case "CSS":
+lang="css";
+break;
+
+case "JavaScript":
+lang="javascript";
+break;
+
+case "Python":
+lang="python";
+break;
+
+case "Java":
+lang="java";
+break;
+
+case "C++":
+lang="cpp";
+break;
+
+case "PHP":
+lang="php";
+break;
+
+case "React":
+lang="javascript";
+break;
+
 }
 
-// Highlight लागू करो
-hljs.highlightElement(output);
+monaco.editor.setModelLanguage(
 
-    } catch (err) {
+editor.getModel(),
 
-        output.textContent = err.message;
+lang
 
-    }
+);
+
+}catch(err){
+
+editor.setValue("❌ " + err.message);
+
+}
+
+});
+``
+// ================================
+// Copy Code
+// ================================
+
+copyBtn.addEventListener("click",()=>{
+
+if(!editor){
+alert("Editor not ready.");
+return;
+}
+
+navigator.clipboard.writeText(editor.getValue());
+
+alert("✅ Code Copied!");
 
 });
 
-copyBtn.addEventListener("click", () => {
+// ================================
+// Download Code
+// ================================
 
-    navigator.clipboard.writeText(output.textContent);
+downloadBtn.addEventListener("click",()=>{
 
-    alert("✅ Code copied!");
+if(!editor){
+alert("Editor not ready.");
+return;
+}
 
+const code = editor.getValue();
+
+if(!code.trim()){
+alert("Generate code first.");
+return;
+}
+
+let fileName="code.txt";
+
+switch(languageSelect.value){
+
+case "HTML":
+fileName="index.html";
+break;
+
+case "CSS":
+fileName="style.css";
+break;
+
+case "JavaScript":
+fileName="script.js";
+break;
+
+case "Python":
+fileName="main.py";
+break;
+
+case "Java":
+fileName="Main.java";
+break;
+
+case "C++":
+fileName="main.cpp";
+break;
+
+case "PHP":
+fileName="index.php";
+break;
+
+case "React":
+fileName="App.jsx";
+break;
+
+}
+
+const blob=new Blob([code],{
+type:"text/plain"
 });
-downloadBtn.addEventListener("click", () => {
 
-    const code = output.textContent;
+const url=URL.createObjectURL(blob);
 
-    if (!code || code.includes("Generated code")) {
-        alert("Generate code first.");
-        return;
-    }
+const a=document.createElement("a");
 
-    const language = document.getElementById("language").value;
+a.href=url;
+a.download=fileName;
 
-    let fileName = "code.txt";
+a.click();
 
-    switch(language){
-
-        case "HTML":
-            fileName = "index.html";
-            break;
-
-        case "CSS":
-            fileName = "style.css";
-            break;
-
-        case "JavaScript":
-            fileName = "script.js";
-            break;
-
-        case "Python":
-            fileName = "main.py";
-            break;
-
-        case "C++":
-            fileName = "main.cpp";
-            break;
-
-        case "Java":
-            fileName = "Main.java";
-            break;
-
-        case "PHP":
-            fileName = "index.php";
-            break;
-
-        case "React":
-            fileName = "App.jsx";
-            break;
-    }
-
-    const blob = new Blob([code], { type: "text/plain" });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = fileName;
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-});
-previewBtn.addEventListener("click", () => {
-
-    const code = output.textContent;
-    const language = document.getElementById("language").value;
-
-    if (!code || code.includes("Generated code")) {
-        alert("Generate code first.");
-        return;
-    }
-
-    if (language !== "HTML") {
-        alert("Live Preview is available only for HTML.");
-        return;
-    }
-
-    const previewWindow = window.open("", "_blank");
-
-    previewWindow.document.open();
-    previewWindow.document.write(code);
-    previewWindow.document.close();
-
-});
-saveProjectBtn.addEventListener("click", () => {
-
-    const prompt = document.getElementById("codePrompt").value.trim();
-    const language = document.getElementById("language").value;
-    const code = output.textContent;
-    const category =
-document.getElementById("category").value;
-    if (!prompt || !code || code.includes("Generated code")) {
-        alert("Generate code first.");
-        return;
-    }
-
-    const projects =
-        JSON.parse(localStorage.getItem("projects")) || [];
-
-    projects.unshift({
-
-title: prompt,
-
-category: category,
-
-language: language,
-
-code: code,
-
-created: new Date().toLocaleString(),
-
-favorite:false
+URL.revokeObjectURL(url);
 
 });
 
-    localStorage.setItem(
-        "projects",
-        JSON.stringify(projects)
-    );
+// ================================
+// Live HTML Preview
+// ================================
 
-    alert("✅ Project Saved!");
+previewBtn.addEventListener("click",()=>{
+
+if(!editor){
+alert("Editor not ready.");
+return;
+}
+
+const code=editor.getValue();
+
+if(languageSelect.value!=="HTML"){
+
+alert("Live Preview works only for HTML.");
+
+return;
+
+}
+
+const preview=window.open("","_blank");
+
+preview.document.open();
+preview.document.write(code);
+preview.document.close();
 
 });
+// ================================
+// Save Project
+// ================================
+
+saveProjectBtn.addEventListener("click",()=>{
+
+if(!editor){
+alert("Editor not ready.");
+return;
+}
+
+const prompt = promptInput.value.trim();
+
+const language = languageSelect.value;
+
+const category = categorySelect
+? categorySelect.value
+: "Other";
+
+const code = editor.getValue();
