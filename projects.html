@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>My Projects | ContentAI Pro</title>
 
@@ -21,9 +21,7 @@
 <aside class="sidebar">
 
 <div class="logo">
-
 🤖 <span>ContentAI Pro</span>
-
 </div>
 
 <ul>
@@ -74,11 +72,13 @@
 
 <h2>📂 My Projects</h2>
 
-<p>Your saved AI code projects</p>
+<p>Manage your saved AI projects</p>
 
 </div>
 
 </header>
+
+<div class="writer-card">
 
 <input
 type="text"
@@ -87,9 +87,23 @@ placeholder="🔍 Search Projects...">
 
 <br><br>
 
+<div class="buttons">
+
+<button id="allBtn">
+📂 All Projects
+</button>
+
+<button id="favoriteBtn">
+⭐ Favorites
+</button>
+
+</div>
+
 <div id="projectList">
 
-No Projects Saved...
+Loading...
+
+</div>
 
 </div>
 
@@ -98,125 +112,3 @@ No Projects Saved...
 </div>
 
 <script>
-
-let projects =
-JSON.parse(localStorage.getItem("projects")) || [];
-
-const list =
-document.getElementById("projectList");
-
-function renderProjects(data){
-
-if(data.length===0){
-
-list.innerHTML="<h3>No Projects Found</h3>";
-
-return;
-
-}
-
-list.innerHTML=data.map((p,index)=>`
-
-<div class="history-card">
-
-<h3>${p.title}</h3>
-
-<p><b>Language:</b> ${p.language}</p>
-
-<p><b>Date:</b> ${p.created}</p>
-
-<button onclick="openProject(${index})">
-📂 Open
-</button>
-
-<button onclick="toggleFavorite(${index})">
-⭐ ${p.favorite ? "Unfavorite" : "Favorite"}
-</button>
-
-<button onclick="deleteProject(${index})">
-🗑 Delete
-</button>
-
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-renderProjects(projects);
-
-function deleteProject(index){
-
-projects.splice(index,1);
-
-localStorage.setItem(
-"projects",
-JSON.stringify(projects)
-);
-
-renderProjects(projects);
-
-}
-function toggleFavorite(index){
-
-projects[index].favorite = !projects[index].favorite;
-
-localStorage.setItem(
-"projects",
-JSON.stringify(projects)
-);
-
-renderProjects(projects);
-
-}
-function openProject(index){
-
-localStorage.setItem(
-"currentProject",
-JSON.stringify(projects[index])
-);
-
-location.href="code.html";
-
-}
-<button onclick="renderProjects(projects)">
-📂 All
-</button>
-
-<button onclick="showFavorites()">
-⭐ Favorites
-</button>
-document
-.getElementById("searchProject")
-.addEventListener("input",function(){
-
-const value=this.value.toLowerCase();
-
-const filtered=
-
-projects.filter(p=>
-
-p.title.toLowerCase().includes(value)
-
-);
-
-renderProjects(filtered);
-
-});
-
-</script>
-
-</body>
-
-</html>
-function showFavorites(){
-
-const favorites = projects.filter(
-p => p.favorite
-);
-
-renderProjects(favorites);
-
-}
