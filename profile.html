@@ -154,7 +154,11 @@ placeholder="Profile Image URL">
 </div>
 
 <script>
+if(localStorage.getItem("theme")==="dark"){
 
+document.body.classList.add("dark");
+
+}
 const editBtn=document.getElementById("editProfileBtn");
 const modal=document.getElementById("editModal");
 
