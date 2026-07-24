@@ -181,7 +181,13 @@ JSON.stringify(projects[index])
 location.href="code.html";
 
 }
+<button onclick="renderProjects(projects)">
+📂 All
+</button>
 
+<button onclick="showFavorites()">
+⭐ Favorites
+</button>
 document
 .getElementById("searchProject")
 .addEventListener("input",function(){
